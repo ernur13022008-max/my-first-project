@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--ARTIFACT-HEAD-START-->
+<title>Абай Құнанбайұлы</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+{{FONTS}}
+/* Layout: a fixed 1920x1080 stage scaled to fit the window, one slide at a time.
+   Look: "a museum hall at night" - ink-blue darkness, the author's carpet as texture and ornament, gold leaf and candle-warm cream. */
+:root {
+  --ink: #0a0b16;
+  --ink-2: #101327;
+  --night: #161a3a;
+  --crimson: #7d1a22;
+  --ember: #b5452f;
+  --gold: #d8b26e;
+  --gold-hi: #f6dfa4;
+  --gold-lo: #9c7433;
+  --cream: #f2e6ce;
+  --mist: #c2b59c;
+  --jade: #2f6252;
+  --rose: #c76d6a;
+  --display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Montserrat", "Segoe UI", Arial, sans-serif;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --ease-io: cubic-bezier(.76, 0, .2, 1);
+  --gold-grad: linear-gradient(180deg, #fff3cf 0%, #f2d38b 34%, #c9984a 60%, #f5dc9b 80%, #a87a35 100%);
+  --carpet: url({{IMG:carpet.jpg}});
+  --med: url({{IMG:medallion.png}});
+  --portrait: url({{IMG:portrait.jpg}});
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { height: 100%; margin: 0; overflow: hidden; background: var(--ink); color: var(--cream); }
+body { font-family: var(--sans); -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+
+/* ---------- viewport and stage ---------- */
+#viewport {
+  position: fixed; inset: 0; background: #05060c;
+  padding: 0 max(16px, env(safe-area-inset-right, 0px)) 0 max(16px, env(safe-area-inset-left, 0px));
+}
+:root:fullscreen #viewport { padding: 0; }
+#stage {
+  position: absolute; left: 0; top: 0; width: 1920px; height: 1080px;
+  transform-origin: 0 0; overflow: hidden; background: var(--ink);
+  box-shadow: 0 30px 120px rgba(0, 0, 0, .55);
+}
+.slide { position: absolute; inset: 0; overflow: hidden; visibility: hidden; background: var(--ink); isolation: isolate; }
+.slide.is-active, .slide.is-leaving { visibility: visible; }
+.slide.is-leaving { z-index: 1; }
+.slide.is-active { z-index: 2; }
+.slide > * { position: absolute; margin: 0; }
+.notes { display: none !important; }
+
+/* ---------- shared background pieces ---------- */
+.bg { inset: 0; background: radial-gradient(1300px 900px at 68% 46%, #1b1733 0%, var(--ink) 62%); }
+.bg > * { position: absolute; }
+.tex { inset: 0; background-image: var(--carpet); background-size: 620px auto; opacity: .07; filter: grayscale(.2); mix-blend-mode: luminosity; }
+.vignette { inset: 0; background: radial-gradient(130% 100% at 50% 50%, transparent 55%, rgba(3, 3, 10, .72) 100%); }
+.frame { inset: 30px; border: 1px solid rgba(216, 178, 110, .30); pointer-events: none; }
+.frame::before { content: ""; position: absolute; inset: 9px; border: 1px solid rgba(216, 178, 110, .13); }
+.frame i { position: absolute; width: 15px; height: 15px; border: 1px solid rgba(216, 178, 110, .75); background: var(--ink); transform: rotate(45deg); }
+.frame i:nth-child(1) { left: -8px; top: -8px; }
+.frame i:nth-child(2) { right: -8px; top: -8px; }
+.frame i:nth-child(3) { left: -8px; bottom: -8px; }
+.frame i:nth-child(4) { right: -8px; bottom: -8px; }
+.glow { border-radius: 50%; filter: blur(60px); }
+
+/* medallion cut from the author's carpet */
+.med { width: var(--w); height: var(--w); border-radius: 50%; }
+.med .halo { position: absolute; inset: 6%; border-radius: 50%; background: radial-gradient(circle, rgba(246, 223, 164, .42) 0%, rgba(216, 178, 110, .16) 48%, rgba(216, 178, 110, 0) 70%); }
+.med .ring { position: absolute; inset: 9%; border-radius: 50%; border: 2px solid rgba(216, 178, 110, .7); box-shadow: 0 0 22px rgba(246, 223, 164, .35), inset 0 0 22px rgba(246, 223, 164, .25); }
+.med .ring::after { content: ""; position: absolute; inset: -14px; border-radius: 50%; border: 1px dashed rgba(216, 178, 110, .45); }
+.med .disc { position: absolute; inset: 12%; border-radius: 50%; background: var(--med) center / cover no-repeat; }
+
+/* ---------- type ---------- */
+.eyebrow { font: 600 20px/1 var(--sans); letter-spacing: .34em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 18px; white-space: nowrap; }
+.eyebrow::before { content: ""; width: 10px; height: 10px; border: 1.5px solid var(--gold); transform: rotate(45deg); flex: none; }
+.h2 { font: 600 96px/1.02 var(--display); color: var(--cream); letter-spacing: -.005em; }
+.h2 em, .em { font-style: italic; font-weight: 600; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: .06em; }
+.lead { font: 400 26px/1.55 var(--sans); color: rgba(242, 230, 206, .9); }
+.cap { font: 500 18px/1.3 var(--sans); letter-spacing: .08em; color: var(--mist); }
+.gold { background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+/* ---------- photo frames ---------- */
+.ph { padding: 12px; border: 1px solid rgba(216, 178, 110, .75); box-shadow: inset 0 0 0 12px #151831, 0 34px 70px rgba(0, 0, 0, .55); }
+.ph { overflow: hidden; }
+.ph img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ph figcaption { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 40px 20px 14px; font: 500 18px/1.3 var(--sans); letter-spacing: .04em; color: var(--cream); background: linear-gradient(180deg, rgba(8, 9, 20, 0), rgba(8, 9, 20, .86)); }
+.kb { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- entrance animations (the plain rules are the finished look) ---------- */
+.slide.play .a { animation: var(--an) var(--du, 1.1s) var(--ease) var(--t, 0s) both; }
+[data-a="up"] { --an: a-up; }
+[data-a="rise"] { --an: a-rise; }
+[data-a="fade"] { --an: a-fade; }
+[data-a="zoom"] { --an: a-zoom; }
+[data-a="zoomout"] { --an: a-zoomout; }
+[data-a="wipe"] { --an: a-wipe; }
+[data-a="wipe-up"] { --an: a-wipe-up; }
+[data-a="left"] { --an: a-left; }
+[data-a="right"] { --an: a-right; }
+@keyframes a-up { from { opacity: 0; translate: 0 46px; filter: blur(8px); } }
+@keyframes a-rise { from { opacity: 0; translate: 0 90px; scale: .96; filter: blur(10px); } }
+@keyframes a-fade { from { opacity: 0; } }
+@keyframes a-zoom { from { opacity: 0; scale: .8; filter: blur(12px); } }
+@keyframes a-zoomout { from { opacity: 0; scale: 1.18; filter: blur(16px); } }
+@keyframes a-wipe { from { clip-path: inset(-60px 100% -60px -60px); } to { clip-path: inset(-60px -60px -60px -60px); } }
+@keyframes a-wipe-up { from { clip-path: inset(100% -60px -60px -60px); } to { clip-path: inset(-60px -60px -60px -60px); } }
+@keyframes a-left { from { opacity: 0; translate: -90px 0; filter: blur(8px); } }
+@keyframes a-right { from { opacity: 0; translate: 90px 0; filter: blur(8px); } }
+/* per-letter reveal for the big title (letters are wrapped by the script) */
+.letters .ch { display: inline-block; }
+.slide.play .letters .ch { animation: a-letter 1.3s var(--ease) both; animation-delay: calc(var(--t, 0s) + var(--i) * 110ms); }
+@keyframes a-letter { from { opacity: 0; translate: 0 .32em; scale: 1.12; filter: blur(14px); } }
+/* ambient loops */
+.spin { animation: spin 140s linear infinite; }
+@keyframes spin { to { rotate: 360deg; } }
+.slide .kb { animation: kb 26s cubic-bezier(.3, .1, .2, 1) both paused; }
+.slide.is-active .kb { animation-play-state: running; }
+@keyframes kb { from { scale: 1.16; translate: 1.5% -1%; } to { scale: 1; translate: 0 0; } }
+
+/* =================== 1 · cover =================== */
+.s1 .bg { background: radial-gradient(900px 760px at 70% 48%, #3a1b24 0%, #1a1430 42%, var(--ink) 72%); }
+.s1 .rays { left: 760px; top: -140px; width: 1160px; height: 1360px; background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(246, 223, 164, .07) 0deg 4deg, transparent 4deg 15deg); -webkit-mask: radial-gradient(circle at 50% 50%, #000 0%, transparent 62%); mask: radial-gradient(circle at 50% 50%, #000 0%, transparent 62%); }
+.arch { padding: 11px; border-radius: 260px 260px 14px 14px; background: linear-gradient(160deg, #f6dfa4, #b9873e 40%, #f3d58f 70%, #8f6527); box-shadow: 0 40px 90px rgba(0, 0, 0, .6), 0 0 70px rgba(216, 178, 110, .25); }
+.arch .in { width: 100%; height: 100%; border-radius: 250px 250px 6px 6px; overflow: hidden; border: 3px solid #120f1c; background: var(--portrait) 50% 18% / cover no-repeat; }
+.s1 .abai { left: 128px; top: 262px; font: 700 262px/.9 var(--display); letter-spacing: .02em; filter: drop-shadow(0 6px 34px rgba(216, 178, 110, .30)); }
+.s1 .abai .ch, .s10 .thanks .ch { background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.s1 .sur { left: 140px; top: 525px; font: 600 80px/1 var(--display); letter-spacing: .11em; color: var(--cream); }
+.s1 .dates { left: 142px; top: 655px; display: flex; align-items: center; gap: 26px; font: 600 54px/1 var(--display); color: var(--gold-hi); }
+.s1 .dates i { width: 120px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); position: relative; }
+.s1 .dates i::after { content: ""; position: absolute; left: 50%; top: -6px; width: 11px; height: 11px; border: 1.5px solid var(--gold); background: var(--ink); transform: translateX(-50%) rotate(45deg); }
+.s1 .tag { left: 142px; top: 790px; width: 760px; }
+.s1 .tag p { margin: 0; font: italic 500 48px/1.1 var(--display); color: var(--cream); }
+.s1 .tag cite { display: block; margin-top: 14px; font: 500 19px/1 var(--sans); font-style: normal; letter-spacing: .18em; text-transform: uppercase; color: var(--mist); }
+
+/* =================== 2 · biography =================== */
+.s2 .kb { filter: saturate(1.15) brightness(1.18) contrast(1.08); }
+.s2 .shade { inset: 0; background:
+  linear-gradient(90deg, rgba(10, 11, 22, .98) 0%, rgba(10, 11, 22, .93) 38%, rgba(10, 11, 22, .5) 58%, rgba(10, 11, 22, .22) 100%),
+  linear-gradient(0deg, rgba(10, 11, 22, .8) 0%, rgba(10, 11, 22, 0) 30%); }
+.facts { width: 900px; display: grid; gap: 26px; }
+.fact b { display: block; font: 600 17px/1 var(--sans); letter-spacing: .26em; color: var(--gold); margin-bottom: 9px; }
+.fact span { font: 400 26px/1.45 var(--sans); color: rgba(242, 230, 206, .92); }
+
+/* =================== 3 · timeline =================== */
+.s3 .bg { background: radial-gradient(1400px 700px at 50% 60%, #191a38 0%, var(--ink) 70%); }
+.tl-line { left: 140px; top: 648px; width: 1640px; height: 24px; }
+.node { width: 340px; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.node.up { bottom: calc(1080px - 672px); }
+.node.dn { top: 648px; }
+.node.dn .dot { order: 1; } .node.dn .stem { order: 2; } .node.dn .yr { order: 3; } .node.dn .tx { order: 4; }
+.node .yr { font: 700 64px/1 var(--display); }
+.node .tx { font: 400 23px/1.42 var(--sans); color: rgba(242, 230, 206, .9); margin-top: 8px; }
+.node.dn .tx { margin-top: 8px; }
+.node .stem { width: 1px; height: 34px; background: linear-gradient(180deg, transparent, var(--gold)); margin-top: 12px; }
+.node.dn .stem { background: linear-gradient(0deg, transparent, var(--gold)); margin: 0 0 10px; }
+.node.dn .yr { margin-top: 4px; }
+.node .dot { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--gold); background: radial-gradient(circle, var(--gold-hi) 0 4px, var(--ink) 5px); box-shadow: 0 0 18px rgba(246, 223, 164, .6); flex: none; }
+.node.dn .dn-body { display: flex; flex-direction: column; align-items: center; }
+.stamp { transform: rotate(4deg); padding: 10px; background: #f4ecdc; box-shadow: 0 24px 50px rgba(0, 0, 0, .55); }
+.stamp img { display: block; width: 100%; }
+.stamp figcaption { font: 500 15px/1.2 var(--sans); letter-spacing: .08em; color: #3b3326; text-align: center; padding-top: 8px; }
+
+/* =================== 4 · poet =================== */
+.s4 .bg { background: radial-gradient(1200px 900px at 20% 50%, #2a1824 0%, var(--ink) 60%); }
+.quote4 { font: italic 500 42px/1.32 var(--display); color: var(--cream); }
+.quote4 cite { display: block; margin-top: 16px; font: 500 19px/1 var(--sans); font-style: normal; letter-spacing: .2em; color: var(--gold); text-transform: uppercase; }
+.stat { width: 250px; }
+.stat .n { font: 700 104px/1 var(--display); font-variant-numeric: lining-nums tabular-nums; }
+.stat .l { font: 500 20px/1.32 var(--sans); color: var(--mist); margin-top: 8px; letter-spacing: .01em; }
+.stat .l b { display: block; color: var(--cream); font-weight: 600; font-size: 24px; }
+.seasons { font: 400 24px/1.4 var(--sans); color: rgba(242, 230, 206, .88); }
+.seasons em { font: italic 600 30px/1 var(--display); color: var(--gold-hi); }
+.stat-rule { height: 1px; background: linear-gradient(90deg, rgba(216, 178, 110, .6), rgba(216, 178, 110, 0)); }
+
+/* =================== 5 · book of words =================== */
+.s5 .kb { object-position: 20% 50%; filter: saturate(.95) brightness(.9); }
+.s5 .shade { inset: 0; background: linear-gradient(90deg, rgba(10, 11, 22, .15) 0%, rgba(10, 11, 22, .55) 36%, rgba(10, 11, 22, .94) 52%, rgba(10, 11, 22, .97) 100%), linear-gradient(0deg, rgba(10, 11, 22, .7), rgba(10, 11, 22, 0) 35%); }
+.big45 { font: 700 330px/.8 var(--display); }
+.big45-side { font: 600 54px/1 var(--display); color: var(--cream); }
+.big45-side small { display: block; font: 500 21px/1.3 var(--sans); letter-spacing: .14em; color: var(--mist); margin-top: 14px; text-transform: uppercase; }
+.qcard { width: 392px; height: 236px; padding: 30px 30px 26px; display: flex; flex-direction: column; justify-content: space-between; background: linear-gradient(160deg, rgba(36, 33, 66, .92), rgba(18, 18, 38, .92)); border: 1px solid rgba(216, 178, 110, .45); box-shadow: 0 24px 50px rgba(0, 0, 0, .45); }
+.qcard::before { content: "«"; position: absolute; left: 22px; top: -38px; font: 700 96px/1 var(--display); color: var(--gold); }
+.qcard p { margin: 0; font: italic 500 30px/1.26 var(--display); color: var(--cream); }
+.qcard cite { display: block; margin-top: 16px; font: 600 15px/1 var(--sans); font-style: normal; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+
+/* =================== 6 · complete human =================== */
+.s6 .bg { background: radial-gradient(900px 700px at 50% 58%, #261a36 0%, var(--ink) 66%); }
+.center { left: 0; width: 1920px; text-align: center; }
+.center.eyebrow { justify-content: center; }
+.sub6 { font: italic 500 36px/1.25 var(--display); color: var(--gold-hi); }
+.circ { width: 360px; height: 360px; border-radius: 50%; display: grid; place-items: center; text-align: center; font: 600 40px/1.05 var(--display); color: var(--cream); }
+.circ span { display: block; width: 210px; text-shadow: 0 2px 14px rgba(0, 0, 0, .6); }
+.c-qairat { background: radial-gradient(circle at 40% 40%, rgba(214, 91, 61, .62), rgba(125, 26, 34, .38) 60%, rgba(125, 26, 34, .08) 100%); border: 1.5px solid rgba(234, 120, 80, .75); }
+.c-aqyl { background: radial-gradient(circle at 50% 40%, rgba(246, 223, 164, .55), rgba(216, 178, 110, .30) 60%, rgba(216, 178, 110, .06) 100%); border: 1.5px solid rgba(246, 223, 164, .85); }
+.c-zhurek { background: radial-gradient(circle at 60% 40%, rgba(222, 120, 140, .55), rgba(140, 40, 70, .35) 60%, rgba(140, 40, 70, .06) 100%); border: 1.5px solid rgba(236, 150, 160, .8); }
+.core { width: 220px; text-align: center; font: 700 26px/1.1 var(--sans); letter-spacing: .16em; color: #fff7e0; text-shadow: 0 0 18px rgba(246, 223, 164, .9), 0 2px 6px rgba(0, 0, 0, .7); }
+.list6 { width: 400px; }
+.list6 h3 { margin: 0 0 22px; font: 600 40px/1 var(--display); color: var(--cream); }
+.list6 h3 small { display: block; font: 600 16px/1 var(--sans); letter-spacing: .3em; color: var(--gold); margin-bottom: 12px; }
+.list6 ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.list6 li { display: flex; align-items: center; gap: 16px; font: 500 26px/1.2 var(--sans); color: rgba(242, 230, 206, .94); }
+.list6 li::before { content: ""; width: 12px; height: 12px; flex: none; transform: rotate(45deg); background: var(--gold); box-shadow: 0 0 10px rgba(246, 223, 164, .7); }
+.list6.bad li { color: rgba(242, 230, 206, .72); }
+.list6.bad li::before { background: transparent; border: 1.5px solid var(--rose); box-shadow: none; }
+.list6.bad h3 small { color: var(--rose); }
+.note6 { left: 360px; width: 1200px; text-align: center; font: 400 23px/1.5 var(--sans); color: var(--mist); }
+.note6 b { color: var(--cream); font-weight: 600; }
+
+/* =================== 7 · composer =================== */
+.s7 .bg { background: radial-gradient(1000px 900px at 22% 62%, #4a1720 0%, #24112a 40%, var(--ink) 75%); }
+.ripples { left: 438px; top: 742px; width: 0; height: 0; }
+.ripples i { position: absolute; left: 0; top: 0; width: 900px; height: 900px; margin: -450px 0 0 -450px; border-radius: 50%; border: 1px solid rgba(246, 223, 164, .2); scale: var(--sc); opacity: var(--op); }
+.slide.play .ripples i { animation: ripple 6s linear infinite; animation-delay: calc(var(--k) * -1.5s); }
+@keyframes ripple { from { scale: .12; opacity: .9; } to { scale: 1.05; opacity: 0; } }
+.dombra { height: 1180px; rotate: -27deg; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .65)) drop-shadow(0 0 30px rgba(246, 223, 164, .25)); }
+.songs { width: 900px; list-style: none; padding: 0; }
+.songs li { display: grid; grid-template-columns: 70px 1fr auto; align-items: center; height: 70px; border-top: 1px solid rgba(216, 178, 110, .28); }
+.songs li:last-child { border-bottom: 1px solid rgba(216, 178, 110, .28); }
+.songs .no { font: 600 18px/1 var(--sans); letter-spacing: .1em; color: var(--gold); }
+.songs .nm { font: 600 40px/1 var(--display); color: var(--cream); }
+.songs .eq { display: flex; gap: 4px; align-items: flex-end; height: 26px; }
+.songs .eq i { width: 4px; height: var(--h); background: var(--gold); border-radius: 2px; opacity: .8; }
+.slide.play .songs .eq i { animation: eq 1.1s ease-in-out infinite alternate; animation-delay: calc(var(--k) * -.27s); }
+@keyframes eq { from { height: 5px; } }
+.opera { display: flex; gap: 28px; align-items: center; width: 900px; }
+.opera .ph { position: relative; width: 300px; height: 200px; flex: none; }
+.opera p { margin: 0; font: 400 23px/1.5 var(--sans); color: rgba(242, 230, 206, .88); }
+
+/* =================== 8 · east and west =================== */
+.s8 .bg { background:
+  radial-gradient(800px 700px at 18% 55%, rgba(150, 64, 36, .38) 0%, transparent 70%),
+  radial-gradient(800px 700px at 82% 55%, rgba(40, 70, 140, .38) 0%, transparent 70%),
+  radial-gradient(700px 600px at 50% 56%, #1d1933 0%, var(--ink) 75%); }
+.col8 { width: 460px; }
+.col8 h3 { margin: 0 0 26px; font: 600 18px/1 var(--sans); letter-spacing: .4em; color: var(--gold); }
+.col8 ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+.col8 li { font: 600 44px/1 var(--display); color: var(--cream); }
+.col8.east { text-align: right; }
+.col8.east h3 { color: #e9a66f; }
+.col8.west h3 { color: #9fb8ef; }
+.lines8 { left: 0; top: 0; width: 1920px; height: 1080px; overflow: visible; }
+.circle-portrait { width: 330px; height: 330px; border-radius: 50%; padding: 8px; background: linear-gradient(160deg, #f6dfa4, #b9873e 45%, #f3d58f 70%, #8f6527); box-shadow: 0 0 60px rgba(216, 178, 110, .45), 0 20px 50px rgba(0, 0, 0, .6); }
+.circle-portrait .pic { width: 100%; height: 100%; border-radius: 50%; border: 3px solid #120f1c; background: var(--portrait) 50% 22% / cover no-repeat; }
+.note8 { left: 300px; width: 1320px; text-align: center; font: 400 24px/1.5 var(--sans); color: rgba(242, 230, 206, .86); }
+.note8 em { font: italic 600 30px/1 var(--display); color: var(--gold-hi); }
+
+/* =================== 9 · legacy =================== */
+.s9 .bg { background: radial-gradient(1200px 900px at 75% 50%, #1b1934 0%, var(--ink) 70%); }
+.quote9 { font: italic 600 70px/1.08 var(--display); }
+.legacy { width: 540px; display: grid; gap: 24px; }
+.legacy div b { display: block; font: 600 31px/1.1 var(--display); color: var(--gold-hi); margin-bottom: 6px; }
+.legacy div span { font: 400 22px/1.45 var(--sans); color: rgba(242, 230, 206, .88); }
+.tile { padding: 8px; border: 1px solid rgba(216, 178, 110, .6); box-shadow: inset 0 0 0 8px #151831, 0 26px 50px rgba(0, 0, 0, .5); }
+.tile img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.tile figcaption { position: absolute; left: 8px; right: 8px; bottom: 8px; padding: 34px 16px 12px; font: 600 17px/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--cream); background: linear-gradient(180deg, rgba(8, 9, 20, 0), rgba(8, 9, 20, .85)); }
+.note-card { rotate: -5deg; padding: 8px; background: #efe6d2; box-shadow: 0 26px 46px rgba(0, 0, 0, .6); }
+.note-card img { display: block; width: 100%; }
+.note-card figcaption { font: 600 14px/1.2 var(--sans); letter-spacing: .1em; color: #3b3326; text-align: center; padding-top: 7px; text-transform: uppercase; }
+
+/* =================== 10 · finale =================== */
+.s10 .bg { background: radial-gradient(900px 800px at 25% 50%, #3a1b24 0%, #1a1430 42%, var(--ink) 75%); }
+.s10 .rays { left: -100px; top: -140px; width: 1160px; height: 1360px; background: repeating-conic-gradient(from 0deg at 50% 50%, rgba(246, 223, 164, .07) 0deg 4deg, transparent 4deg 15deg); -webkit-mask: radial-gradient(circle at 50% 50%, #000 0%, transparent 62%); mask: radial-gradient(circle at 50% 50%, #000 0%, transparent 62%); }
+.quote10 { font: italic 600 80px/1.12 var(--display); color: var(--cream); }
+.quote10 .em { padding-right: .1em; }
+.cite10 { font: 500 20px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold); }
+.orn { display: flex; align-items: center; gap: 18px; }
+.orn i { width: 160px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.orn i:last-child { background: linear-gradient(90deg, var(--gold), transparent); }
+.orn b { width: 12px; height: 12px; border: 1.5px solid var(--gold); transform: rotate(45deg); }
+.thanks { font: 700 84px/1 var(--display); filter: drop-shadow(0 4px 24px rgba(216, 178, 110, .3)); }
+.credit10 { font: 500 16px/1.4 var(--sans); letter-spacing: .04em; color: rgba(194, 181, 156, .8); }
+
+/* ---------- transitions ---------- */
+.curtain { position: absolute; inset: 0; z-index: 20; pointer-events: none; visibility: hidden; }
+.curtain .cp { position: absolute; top: 0; bottom: 0; width: 50.5%; background:
+  linear-gradient(90deg, rgba(10, 11, 22, .25), rgba(10, 11, 22, .55)),
+  var(--carpet) center / 520px auto; box-shadow: 0 0 80px rgba(0, 0, 0, .8); }
+.curtain .cl { left: 0; border-right: 3px solid var(--gold); }
+.curtain .cr { right: 0; border-left: 3px solid var(--gold); transform: scaleX(-1); }
+.curtain .seam { position: absolute; left: 50%; top: 0; bottom: 0; width: 6px; margin-left: -3px; background: linear-gradient(180deg, transparent, #fff3cf 30%, #fff3cf 70%, transparent); box-shadow: 0 0 60px 20px rgba(246, 223, 164, .55); opacity: 0; }
+.iris-ring { position: absolute; left: 50%; top: 50%; width: 200px; height: 200px; margin: -100px 0 0 -100px; border-radius: 50%; border: 3px solid var(--gold-hi); box-shadow: 0 0 40px 10px rgba(246, 223, 164, .55), inset 0 0 30px rgba(246, 223, 164, .5); z-index: 19; pointer-events: none; opacity: 0; }
+#dust { position: absolute; inset: 0; width: 1920px; height: 1080px; z-index: 15; pointer-events: none; }
+
+/* ---------- HUD ---------- */
+.hud { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; padding: 0 max(16px, env(safe-area-inset-right, 0px)) calc(14px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); display: flex; align-items: center; gap: 10px; justify-content: flex-end; transition: opacity .5s; font-family: var(--sans); }
+.hud.idle { opacity: 0; }
+.hud.idle:focus-within { opacity: 1; }
+.hud button { appearance: none; border: 1px solid rgba(216, 178, 110, .45); background: rgba(10, 11, 22, .72); color: var(--cream); height: 40px; min-width: 40px; padding: 0 12px; border-radius: 20px; font: 600 13px/1 var(--sans); letter-spacing: .06em; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.hud button:hover { border-color: var(--gold); background: rgba(30, 28, 50, .9); }
+.hud button:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+.hud button[aria-pressed="true"] { background: var(--gold); color: var(--ink); }
+.hud svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.hud .count { color: var(--mist); font: 600 13px/1 var(--sans); letter-spacing: .16em; min-width: 64px; text-align: center; font-variant-numeric: tabular-nums; }
+.progress { position: fixed; left: 0; bottom: 0; height: 3px; width: 100%; z-index: 49; background: rgba(216, 178, 110, .12); }
+.progress i { display: block; height: 100%; width: 10%; background: linear-gradient(90deg, var(--gold-lo), var(--gold-hi)); transition: width .8s var(--ease); }
+.hint { position: fixed; left: 50%; top: calc(18px + env(safe-area-inset-top, 0px)); translate: -50% 0; z-index: 51; padding: 10px 18px; border-radius: 22px; background: rgba(10, 11, 22, .82); border: 1px solid rgba(216, 178, 110, .4); color: var(--cream); font: 500 13px/1.3 var(--sans); letter-spacing: .03em; transition: opacity .8s; white-space: nowrap; max-width: calc(100vw - 32px); overflow: hidden; text-overflow: ellipsis; }
+.hint.gone { opacity: 0; pointer-events: none; }
+.credits { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; background: rgba(4, 5, 12, .8); padding: 16px max(16px, env(safe-area-inset-right, 0px)) 16px max(16px, env(safe-area-inset-left, 0px)); }
+.credits .box { width: min(760px, 100%); max-height: 86vh; overflow: auto; background: var(--ink-2); border: 1px solid rgba(216, 178, 110, .45); border-radius: 14px; padding: 26px 28px; color: var(--cream); font: 400 14px/1.55 var(--sans); }
+.credits h2 { margin: 0 0 6px; font: 600 30px/1.1 var(--display); color: var(--gold-hi); }
+.credits ol { margin: 14px 0 18px; padding-left: 22px; }
+.credits li { margin-bottom: 6px; }
+.credits a { color: var(--gold-hi); }
+.credits .box > button { appearance: none; border: 1px solid var(--gold); background: transparent; color: var(--cream); border-radius: 18px; padding: 9px 18px; font: 600 13px/1 var(--sans); cursor: pointer; }
+.credits .box > button:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+
+/* ---------- export mode (used to render the PowerPoint layers) ---------- */
+.exp #viewport { padding: 0; }
+.exp .hud, .exp .progress, .exp .hint, .exp .curtain, .exp .iris-ring, .exp .credits { display: none !important; }
+.exp *, .exp *::before, .exp *::after { animation: none !important; transition: none !important; }
+.exp #stage { box-shadow: none; }
+.iso-bg .slide.is-active .pp { visibility: hidden !important; }
+.iso-el html, .iso-el body, .iso-el #viewport, .iso-el #stage, .iso-el .slide { background: transparent !important; }
+.iso-el #dust, .iso-el .slide.is-active .bg { visibility: hidden !important; }
+.iso-el .slide.is-active .pp { visibility: hidden !important; }
+.iso-el .slide.is-active .pp.iso-on { visibility: visible !important; }
+.iso-el .pp.iso-on.iso-frame img.photo { visibility: hidden !important; }
+.iso-el .pp.iso-on.iso-photo * { visibility: hidden !important; }
+.iso-el .pp.iso-on.iso-photo img.photo { visibility: visible !important; }
+html.iso-el, html.iso-el body { background: transparent !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .spin, .slide .kb, .slide.play .ripples i, .slide.play .songs .eq i { animation: none !important; }
+  .slide.play .a, .slide.play .letters .ch { animation-duration: .01s !important; animation-delay: 0s !important; }
+}
+</style>
+<!--ARTIFACT-HEAD-END-->
+</head>
+<body>
+<!--ARTIFACT-BODY-START-->
+<div id="viewport">
+<div id="stage" role="region" aria-roledescription="презентация" aria-label="Абай Құнанбайұлы">
+
+<!-- ================= 1 ================= -->
+<section class="slide s1 is-active" id="s1" data-title="Абай Құнанбайұлы" data-tr="curtain" data-ppt-tr="fade" aria-roledescription="слайд" aria-label="1 / 10">
+  <div class="bg"><div class="rays"></div><div class="tex"></div><div class="vignette"></div><div class="frame"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pp med a" data-a="zoom" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:820px;left:930px;top:120px;--t:.1s;--du:1.8s"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <figure class="pp arch a" role="img" aria-label="Абай Құнанбайұлының портреті" data-a="rise" data-pp-name="!!portrait" data-pp-shared="portrait-arch" style="left:1102px;top:196px;width:476px;height:668px;--t:.35s;--du:1.5s"><div class="in"></div></figure>
+  <p class="pp eyebrow a" data-a="up" style="left:142px;top:212px;--t:.7s">Ақын · Ойшыл · Ағартушы · Сазгер</p>
+  <h1 class="pp abai letters a" data-a="zoomout" data-pa="zoomout" style="--t:.85s;--du:1.4s" aria-label="Абай">АБАЙ</h1>
+  <p class="pp sur a" data-a="wipe" style="--t:1.5s;--du:1.3s">ҚҰНАНБАЙҰЛЫ</p>
+  <p class="pp dates a" data-a="up" style="--t:1.9s"><span>1845</span><i></i><span>1904</span></p>
+  <blockquote class="pp tag a" data-a="up" style="--t:2.15s"><p>«Қазақтың бас ақыны»</p><cite>Ахмет Байтұрсынұлы, 1913</cite></blockquote>
+  <aside class="notes">Құрметті ұстаздар мен достар! Бүгінгі презентациям — қазақтың ұлы ақыны, ойшыл, ағартушы және сазгер Абай Құнанбайұлы туралы. Абай 1845 жылы туып, 1904 жылы дүниеден өтті. Ахмет Байтұрсынұлы 1913 жылы «Қазақ» газетінде оны «қазақтың бас ақыны» деп атаған. Абай — қазақтың жазба әдебиеті мен әдеби тілінің негізін қалаушы.</aside>
+</section>
+
+<!-- ================= 2 ================= -->
+<section class="slide s2" id="s2" data-title="Шыңғыстау баурайында туған дана" data-tr="push" data-ppt-tr="curtains" aria-roledescription="слайд" aria-label="2 / 10">
+  <div class="bg"></div>
+  <img class="pp kb photo" data-pp-fmt="jpg" data-pp-loop="kb" src="{{IMG:zhidebay_dusk.jpg}}" alt="Жидебай маңындағы дала, Шыңғыстау өңірі" style="left:170px;width:1920px">
+  <div class="pp shade"><div class="frame" style="position:absolute"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pp med" data-a="fade" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:150px;left:1716px;top:52px"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <p class="pp eyebrow a" data-a="up" style="left:140px;top:118px;--t:.15s">Өмірбаян</p>
+  <h2 class="pp h2 a" data-a="up" style="left:136px;top:150px;width:1000px;--t:.3s">Шыңғыстау баурайында <em>туған дана</em></h2>
+  <div class="pp fact a" data-a="up" style="left:140px;top:420px;width:900px;--t:.6s"><b>ТУҒАН ЖЕРІ</b><span>1845 жылы 10 тамызда Семей өңіріндегі Шыңғыстау баурайында дүниеге келген.</span></div>
+  <div class="pp fact a" data-a="up" style="left:140px;top:548px;width:900px;--t:.8s"><b>ЕСІМІ</b><span>Шын есімі — Ибраһим. Әжесі Зере еркелетіп «Абай» деп атап кеткен.</span></div>
+  <div class="pp fact a" data-a="up" style="left:140px;top:676px;width:900px;--t:1s"><b>ӘУЛЕТІ</b><span>Әкесі — аға сұлтан Құнанбай Өскенбайұлы, анасы — Ұлжан.</span></div>
+  <div class="pp fact a" data-a="up" style="left:140px;top:766px;width:900px;--t:1.2s"><b>БІЛІМІ</b><span>Семейдегі Ахмет Риза медресесінде оқып, араб, парсы тілдерін меңгерді. 13 жасынан әкесі оны ел басқару ісіне баулыды.</span></div>
+  <figure class="pp ph a" data-a="up" data-pp-split="1" style="left:1222px;top:208px;width:500px;height:668px;--t:.45s;--du:1.3s"><img class="photo" src="{{IMG:abai_photo.jpg}}" alt="Абайдың фотосуреті"><figcaption>Абайдың сирек фотосуреттерінің бірі</figcaption></figure>
+  <p class="pp cap a" data-a="fade" style="left:1222px;top:906px;width:500px;--t:1.4s">Фондағы сурет: Жидебай, Шыңғыстау өңірі</p>
+  <aside class="notes">Абай 1845 жылы 10 тамызда Семей өңіріндегі Шыңғыстау баурайында дүниеге келген. Азан шақырып қойған есімі — Ибраһим, ал әжесі Зере оны еркелетіп «Абай» деп атап кеткен. Әкесі Құнанбай Өскенбайұлы — аға сұлтан, ел басқарған ықпалды тұлға, анасы — Ұлжан. Абай Семейдегі Ахмет Риза медресесінде оқып, араб және парсы тілдерін меңгерді, Шығыс классиктерін түпнұсқадан оқыды. 13 жасынан әкесі оны ел басқару ісіне баулыды.</aside>
+</section>
+
+<!-- ================= 3 ================= -->
+<section class="slide s3" id="s3" data-title="Өмір белестері" data-tr="iris" data-ppt-tr="morph" aria-roledescription="слайд" aria-label="3 / 10">
+  <div class="bg"><div class="tex" style="opacity:.05"></div><div class="vignette"></div><div class="frame"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pp med" data-a="fade" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:150px;left:1716px;top:52px"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <p class="pp eyebrow a" data-a="up" style="left:140px;top:118px;--t:.15s">Өмір жолы</p>
+  <h2 class="pp h2 a" data-a="up" style="left:136px;top:150px;--t:.3s">Өмір <em>белестері</em></h2>
+  <figure class="pp stamp a" data-a="zoom" style="left:1356px;top:104px;width:300px;--t:2.2s"><img src="{{IMG:stamp_1965.jpg}}" alt="КСРО пошта маркасы, 1965, Абай Құнанбаев"><figcaption>КСРО маркасы, 1965</figcaption></figure>
+  <svg class="pp tl-line a" data-a="wipe" style="--t:.5s;--du:1.6s" viewBox="0 0 1640 24" aria-hidden="true"><defs><linearGradient id="tlg" x1="0" x2="1"><stop offset="0" stop-color="#d8b26e" stop-opacity="0"/><stop offset=".06" stop-color="#d8b26e"/><stop offset=".94" stop-color="#d8b26e"/><stop offset="1" stop-color="#d8b26e" stop-opacity="0"/></linearGradient></defs><rect x="0" y="11" width="1640" height="2" fill="url(#tlg)"/><rect x="2" y="6" width="9" height="9" transform="rotate(45 6.5 10.5)" fill="none" stroke="#d8b26e" stroke-width="1.5"/><rect x="1629" y="6" width="9" height="9" transform="rotate(45 1633.5 10.5)" fill="none" stroke="#d8b26e" stroke-width="1.5"/></svg>
+  <div class="pp node up a" data-a="up" style="left:130px;--t:.8s"><div class="yr gold">1845</div><div class="tx">Шыңғыстау баурайында дүниеге келді</div><div class="stem"></div><div class="dot"></div></div>
+  <div class="pp node dn a" data-a="up" style="left:319px;--t:.95s"><div class="yr gold">1855</div><div class="tx">Семейдегі Ахмет Риза медресесінде оқыды</div><div class="stem"></div><div class="dot"></div></div>
+  <div class="pp node up a" data-a="up" style="left:507px;--t:1.1s"><div class="yr gold">1875</div><div class="tx">Қасқабұлақ болысының болысы болып сайланды</div><div class="stem"></div><div class="dot"></div></div>
+  <div class="pp node dn a" data-a="up" style="left:696px;--t:1.25s"><div class="yr gold">1886</div><div class="tx">«Жаз», «Ғылым таппай мақтанба» өлеңдерін жазды</div><div class="stem"></div><div class="dot"></div></div>
+  <div class="pp node up a" data-a="up" style="left:884px;--t:1.4s"><div class="yr gold">1890</div><div class="tx">«Қара сөздерін» жаза бастады (1890–1898)</div><div class="stem"></div><div class="dot"></div></div>
+  <div class="pp node dn a" data-a="up" style="left:1073px;--t:1.55s"><div class="yr gold">1904</div><div class="tx">6 шілдеде дүниеден өтті, Жидебайда жерленді</div><div class="stem"></div><div class="dot"></div></div>
+  <div class="pp node up a" data-a="up" style="left:1261px;--t:1.7s"><div class="yr gold">1909</div><div class="tx">Петербургте тұңғыш өлеңдер жинағы басылды</div><div class="stem"></div><div class="dot"></div></div>
+  <div class="pp node dn a" data-a="up" style="left:1450px;--t:1.85s"><div class="yr gold">1995</div><div class="tx">ЮНЕСКО шешімімен 150 жылдығы әлемде аталды</div><div class="stem"></div><div class="dot"></div></div>
+  <aside class="notes">Абайдың өмір жолындағы негізгі белестер. 1845 жылы Шыңғыстауда дүниеге келді. 1855 жылдан Семейдегі Ахмет Риза медресесінде оқыды. 1875 жылы Қасқабұлақ болысының болысы болып сайланды. 1886 жылы «Жаз», «Ғылым таппай мақтанба» өлеңдерін жазды. 1890 жылдан бастап «Қара сөздерін» жазды. 1904 жылы 6 шілдеде дүниеден өтіп, Жидебайда жерленді. 1909 жылы Петербургте тұңғыш өлеңдер жинағы басылды. 1995 жылы ЮНЕСКО шешімімен ақынның 150 жылдығы бүкіл әлемде аталып өтті. Суреттегі — 1965 жылғы КСРО пошта маркасы.</aside>
+</section>
+
+<!-- ================= 4 ================= -->
+<section class="slide s4" id="s4" data-title="Сөз зергері" data-tr="zoom" data-ppt-tr="morph" aria-roledescription="слайд" aria-label="4 / 10">
+  <div class="bg"><div class="tex" style="opacity:.05"></div><div class="vignette"></div><div class="frame"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pp med" data-a="fade" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:150px;left:1716px;top:52px"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <figure class="pp ph a" data-a="up" data-pp-split="1" style="left:140px;top:150px;width:560px;height:760px;--t:.2s;--du:1.3s"><img class="photo" src="{{IMG:ornate_book.jpg}}" alt="Мұқабасында Абай бейнесі бар кітап" style="object-position:42% 45%;scale:1.18"><figcaption>Абай кітабы. Қазақстанның Орталық мемлекеттік музейі</figcaption></figure>
+  <p class="pp eyebrow a" data-a="up" style="left:820px;top:150px;--t:.3s">Ақын</p>
+  <h2 class="pp h2 a" data-a="up" style="left:816px;top:182px;--t:.45s">Сөз <em>зергері</em></h2>
+  <blockquote class="pp quote4 a" data-a="wipe" style="left:820px;top:318px;width:960px;--t:.75s;--du:1.6s">Мен жазбаймын өлеңді ермек үшін,<br>Жоқ-барды, ертегіні термек үшін.<br>Көкірегі сезімді, тілі орамды,<br>Жаздым үлгі жастарға бермек үшін.<cite>Абай</cite></blockquote>
+  <div class="pp stat-rule a" data-a="wipe" style="left:820px;top:640px;width:960px;--t:1.2s"></div>
+  <div class="pp stat a" data-a="up" style="left:820px;top:668px;--t:1.35s"><div class="n gold" data-count="170" data-suffix="+">170+</div><div class="l"><b>өлең</b>лирика, сатира, толғау</div></div>
+  <div class="pp stat a" data-a="up" style="left:1092px;top:668px;--t:1.5s"><div class="n gold" data-count="56">56</div><div class="l"><b>аударма</b>Пушкиннен Гётеге дейін</div></div>
+  <div class="pp stat a" data-a="up" style="left:1318px;top:668px;--t:1.65s"><div class="n gold" data-count="3">3</div><div class="l"><b>поэма</b>«Масғұт», «Ескендір», «Әзім әңгімесі»</div></div>
+  <div class="pp stat a" data-a="up" style="left:1556px;top:668px;width:224px;--t:1.8s"><div class="n gold" data-count="20" data-suffix="+">20+</div><div class="l"><b>ән</b>сөзі мен әні өзінікі</div></div>
+  <p class="pp seasons a" data-a="up" style="left:820px;top:934px;width:960px;--t:2s">Табиғат лирикасы: <em>«Жаз»</em>, <em>«Күз»</em>, <em>«Қыс»</em>, <em>«Жазғытұры»</em></p>
+  <aside class="notes">Абай — сөз зергері. Ол 170-тен астам өлең жазды, 56 аударма жасады, «Масғұт», «Ескендір», «Әзім әңгімесі» поэмаларын жазды және 20-дан астам ән шығарды. «Мен жазбаймын өлеңді ермек үшін» деген жолдар — оның ақындық ұстанымы: өлең — жастарға үлгі беретін, ой салатын құрал. «Жаз», «Күз», «Қыс», «Жазғытұры» сияқты табиғат лирикасы қазақ поэзиясына жаңа бейнелілік әкелді.</aside>
+</section>
+
+<!-- ================= 5 ================= -->
+<section class="slide s5" id="s5" data-title="Қара сөздер" data-tr="iris" data-ppt-tr="morph" aria-roledescription="слайд" aria-label="5 / 10">
+  <div class="bg"></div>
+  <img class="pp kb photo" data-pp-fmt="jpg" data-pp-loop="kb" src="{{IMG:manuscript.jpg}}" alt="Абай кітаптары, ескі қолжазба">
+  <div class="pp shade"><div class="frame" style="position:absolute"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pp med" data-a="fade" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:150px;left:1716px;top:52px"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <p class="pp eyebrow a" data-a="up" style="left:990px;top:118px;--t:.15s">Философ</p>
+  <h2 class="pp h2 a" data-a="up" style="left:986px;top:150px;--t:.3s"><em>Қара</em> сөздер</h2>
+  <div class="pp big45 gold a" data-a="zoom" style="left:982px;top:300px;--t:.55s;--du:1.4s" data-count="45">45</div>
+  <div class="pp big45-side a" data-a="left" style="left:1330px;top:356px;--t:.85s">қара сөз<small>1890–1898 жылдары жазылған</small></div>
+  <p class="pp lead a" data-a="up" style="left:990px;top:592px;width:790px;--t:1.05s">Білім, еңбек, адамгершілік пен ұлт тағдыры туралы философиялық толғаныстар. Шығарма әлемнің көптеген тілдеріне аударылған.</p>
+  <div class="pp qcard a" data-a="up" style="left:990px;top:770px;--t:1.3s"><p>Адамның адамшылығы — ақыл, ғылым, жақсы ата, жақсы ана, жақсы құрбы, жақсы ұстаздан болады.</p><cite>Қара сөздер</cite></div>
+  <div class="pp qcard a" data-a="up" style="left:1398px;top:770px;--t:1.5s"><p>Орыстың ғылымы, өнері — дүниенің кілті, оны білгенге дүние арзанырақ түседі.</p><cite>Жиырма бесінші сөз</cite></div>
+  <p class="pp cap a" data-a="fade" style="left:140px;top:960px;--t:1.6s">Абай кітаптары, музей қоры</p>
+  <aside class="notes">«Қара сөздер» — Абайдың 1890–1898 жылдары жазған 45 философиялық толғанысы. Онда білім, еңбек, адамгершілік және ұлт тағдыры туралы ойлар бар. Ақын адамның адамшылығы ақылдан, ғылымнан, жақсы ата-анадан, жақсы құрбы мен жақсы ұстаздан болатынын айтады. Жиырма бесінші сөзде ол орыс ғылымы мен өнерін «дүниенің кілті» деп атайды. Шығарма әлемнің көптеген тілдеріне аударылған.</aside>
+</section>
+
+<!-- ================= 6 ================= -->
+<section class="slide s6" id="s6" data-title="Толық адам" data-tr="zoom" data-ppt-tr="morph" aria-roledescription="слайд" aria-label="6 / 10">
+  <div class="bg"><div class="tex" style="opacity:.045"></div><div class="vignette"></div><div class="frame"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pp med" data-a="fade" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:150px;left:1716px;top:52px"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <p class="pp eyebrow center a" data-a="up" style="top:104px;--t:.15s">Абай ілімі</p>
+  <h2 class="pp h2 center a" data-a="up" style="top:136px;--t:.3s">Толық <em>адам</em></h2>
+  <p class="pp sub6 center a" data-a="up" style="top:252px;--t:.5s">«Бес нәрседен қашық бол, бес нәрсеге асық бол, адам болам десеңіз»</p>
+  <div class="pp circ c-aqyl a" data-a="zoom" style="left:780px;top:336px;--t:.8s;--du:1.3s"><span style="translate:0 -70px">Нұрлы ақыл</span></div>
+  <div class="pp circ c-qairat a" data-a="left" style="left:672px;top:520px;--t:1s;--du:1.3s"><span style="translate:-62px 46px">Ыстық қайрат</span></div>
+  <div class="pp circ c-zhurek a" data-a="right" style="left:888px;top:520px;--t:1.2s;--du:1.3s"><span style="translate:62px 46px">Жылы жүрек</span></div>
+  <div class="pp core a" data-a="zoom" style="left:850px;top:600px;--t:1.7s">ТОЛЫҚ АДАМ</div>
+  <div class="pp list6 a" data-a="left" style="left:150px;top:430px;--t:1.9s"><h3><small>АСЫҚ БОЛ</small>Бес асыл іс</h3><ul><li>Талап</li><li>Еңбек</li><li>Терең ой</li><li>Қанағат</li><li>Рақым</li></ul></div>
+  <div class="pp list6 bad a" data-a="right" style="left:1370px;top:430px;--t:2.1s"><h3><small>ҚАШЫҚ БОЛ</small>Бес дұшпан</h3><ul><li>Өсек</li><li>Өтірік</li><li>Мақтаншақ</li><li>Еріншек</li><li>Бекер мал шашпақ</li></ul></div>
+  <p class="pp note6 a" data-a="fade" style="top:934px;--t:2.4s"><b>17-қара сөз:</b> Қайрат, Ақыл, Жүрек таласқанда Ғылым үшеуінің бірлігін, ал басшылықтың жүректе болуын қалайды.</p>
+  <aside class="notes">Абай ілімінің өзегі — «толық адам». Ол үшін адамда ыстық қайрат, нұрлы ақыл және жылы жүрек үйлесім табуы керек. 17-қара сөзде Қайрат, Ақыл және Жүрек таласқа түседі, ал Ғылым үшеуінің бірлігін, басшылықтың жүректе болуын қалайды. «Ғылым таппай мақтанба» өлеңінде ақын бес асыл іс пен бес дұшпанды атайды: талап, еңбек, терең ой, қанағат, рақым — асыл істер; өсек, өтірік, мақтаншақ, еріншек, бекер мал шашпақ — адамның дұшпандары.</aside>
+</section>
+
+<!-- ================= 7 ================= -->
+<section class="slide s7" id="s7" data-title="Абай әндері" data-tr="push" data-ppt-tr="morph" aria-roledescription="слайд" aria-label="7 / 10">
+  <div class="bg"><div class="tex" style="opacity:.05"></div><div class="ripples"><i style="--k:0;--sc:.3;--op:.7"></i><i style="--k:1;--sc:.52;--op:.5"></i><i style="--k:2;--sc:.74;--op:.32"></i><i style="--k:3;--sc:.96;--op:.15"></i></div><div class="vignette"></div><div class="frame"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pp med" data-a="fade" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:150px;left:1716px;top:52px"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <img class="pp dombra a" data-a="left" src="{{IMG:dombra.png}}" alt="Қазақ домбырасы" style="left:262px;top:-58px;--t:.2s;--du:1.6s">
+  <p class="pp eyebrow a" data-a="up" style="left:880px;top:118px;--t:.3s">Сазгер</p>
+  <h2 class="pp h2 a" data-a="up" style="left:876px;top:150px;--t:.45s">Абай <em>әндері</em></h2>
+  <p class="pp lead a" data-a="up" style="left:880px;top:268px;width:900px;--t:.65s">Абай 20-дан астам ән шығарған. Оның әндері ел арасына кең тарап, бүгінге дейін шырқалып келеді.</p>
+  <ol class="pp songs a" data-a="wipe" style="left:880px;top:392px;--t:.9s;--du:1.5s">
+    <li><span class="no">01</span><span class="nm">Көзімнің қарасы</span><span class="eq"><i style="--h:18px;--k:0"></i><i style="--h:26px;--k:1"></i><i style="--h:12px;--k:2"></i><i style="--h:22px;--k:3"></i></span></li>
+    <li><span class="no">02</span><span class="nm">Желсіз түнде жарық ай</span><span class="eq"><i style="--h:22px;--k:2"></i><i style="--h:14px;--k:0"></i><i style="--h:26px;--k:3"></i><i style="--h:10px;--k:1"></i></span></li>
+    <li><span class="no">03</span><span class="nm">Айттым сәлем, Қаламқас</span><span class="eq"><i style="--h:12px;--k:1"></i><i style="--h:24px;--k:3"></i><i style="--h:18px;--k:0"></i><i style="--h:26px;--k:2"></i></span></li>
+    <li><span class="no">04</span><span class="nm">Татьянаның хаты</span><span class="eq"><i style="--h:26px;--k:3"></i><i style="--h:16px;--k:2"></i><i style="--h:22px;--k:1"></i><i style="--h:12px;--k:0"></i></span></li>
+    <li><span class="no">05</span><span class="nm">Сегіз аяқ</span><span class="eq"><i style="--h:14px;--k:0"></i><i style="--h:22px;--k:2"></i><i style="--h:26px;--k:1"></i><i style="--h:16px;--k:3"></i></span></li>
+  </ol>
+  <div class="pp opera a" data-a="up" style="left:880px;top:770px;--t:1.5s"><figure class="ph" style="margin:0"><img src="{{IMG:opera.jpg}}" alt="Абай атындағы опера және балет театрының сахнасы"></figure><p>Абай әндері негізінде А.&nbsp;Жұбанов пен Л.&nbsp;Хамиди <b style="color:var(--gold-hi);font-weight:600">«Абай» операсын</b> жазды (1944). Алматыдағы опера және балет театры ақын есімімен аталады.</p></div>
+  <aside class="notes">Абай — дарынды сазгер. Ол 20-дан астам ән шығарған: «Көзімнің қарасы», «Желсіз түнде жарық ай», «Айттым сәлем, Қаламқас», «Татьянаның хаты», «Сегіз аяқ» және басқалары. Абай әндері негізінде Ахмет Жұбанов пен Латиф Хамиди «Абай» операсын жазды, ол 1944 жылы сахнаға шықты, либреттосын Мұхтар Әуезов жазды. Алматыдағы Қазақ ұлттық опера және балет театры Абай есімімен аталады.</aside>
+</section>
+
+<!-- ================= 8 ================= -->
+<section class="slide s8" id="s8" data-title="Шығыс пен Батыстың тоғысында" data-tr="iris" data-ppt-tr="morph" aria-roledescription="слайд" aria-label="8 / 10">
+  <div class="bg"><div class="tex" style="opacity:.04"></div><div class="vignette"></div><div class="frame"><i></i><i></i><i></i><i></i></div></div>
+  <p class="pp eyebrow center a" data-a="up" style="top:104px;--t:.15s">Мәдениеттер көпірі</p>
+  <h2 class="pp h2 center a" data-a="up" style="top:136px;font-size:84px;--t:.3s">Шығыс пен <em>Батыстың</em> тоғысында</h2>
+  <svg class="pp lines8 a" data-a="wipe" data-pa="wipe" style="--t:1.2s;--du:1.4s" viewBox="0 0 1920 1080" aria-hidden="true">
+    <g fill="none" stroke-width="1.6" stroke-linecap="round">
+      <path d="M 660 366 C 740 366, 740 520, 800 560" stroke="#e9a66f" stroke-opacity=".75"/>
+      <path d="M 660 432 C 730 432, 740 540, 796 570" stroke="#e9a66f" stroke-opacity=".75"/>
+      <path d="M 660 498 C 720 498, 740 560, 794 580" stroke="#e9a66f" stroke-opacity=".75"/>
+      <path d="M 660 564 C 720 564, 740 590, 794 592" stroke="#e9a66f" stroke-opacity=".75"/>
+      <path d="M 660 630 C 720 630, 740 610, 796 604" stroke="#e9a66f" stroke-opacity=".75"/>
+      <path d="M 660 696 C 740 696, 740 640, 800 616" stroke="#e9a66f" stroke-opacity=".75"/>
+      <path d="M 1260 366 C 1180 366, 1180 520, 1120 560" stroke="#9fb8ef" stroke-opacity=".8"/>
+      <path d="M 1260 432 C 1190 432, 1180 540, 1124 570" stroke="#9fb8ef" stroke-opacity=".8"/>
+      <path d="M 1260 498 C 1200 498, 1180 560, 1126 580" stroke="#9fb8ef" stroke-opacity=".8"/>
+      <path d="M 1260 564 C 1200 564, 1180 590, 1126 592" stroke="#9fb8ef" stroke-opacity=".8"/>
+      <path d="M 1260 630 C 1200 630, 1180 610, 1124 604" stroke="#9fb8ef" stroke-opacity=".8"/>
+      <path d="M 1260 696 C 1180 696, 1180 640, 1120 616" stroke="#9fb8ef" stroke-opacity=".8"/>
+    </g>
+    <g fill="#f6dfa4"><circle cx="660" cy="366" r="4"/><circle cx="660" cy="432" r="4"/><circle cx="660" cy="498" r="4"/><circle cx="660" cy="564" r="4"/><circle cx="660" cy="630" r="4"/><circle cx="660" cy="696" r="4"/><circle cx="1260" cy="366" r="4"/><circle cx="1260" cy="432" r="4"/><circle cx="1260" cy="498" r="4"/><circle cx="1260" cy="564" r="4"/><circle cx="1260" cy="630" r="4"/><circle cx="1260" cy="696" r="4"/></g>
+  </svg>
+  <div class="pp med a" data-a="zoom" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:560px;left:680px;top:308px;--t:.3s;--du:1.4s"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <div class="pp circle-portrait a" role="img" aria-label="Абай Құнанбайұлы" data-a="zoom" data-pp-shared="portrait-circle" style="left:795px;top:423px;--t:.6s;--du:1.3s"><div class="pic"></div></div>
+  <div class="pp col8 east a" data-a="left" style="left:180px;top:300px;--t:.8s"><h3>ШЫҒЫС</h3><ol><li>Фирдауси</li><li>Низами</li><li>Сағди</li><li>Хафиз</li><li>Науаи</li><li>Физули</li></ol></div>
+  <div class="pp col8 west a" data-a="right" style="left:1280px;top:300px;--t:1s"><h3>БАТЫС</h3><ol><li>Пушкин</li><li>Лермонтов</li><li>Крылов</li><li>Гёте</li><li>Толстой</li><li>Салтыков-Щедрин</li></ol></div>
+  <p class="pp note8 a" data-a="up" style="top:846px;--t:1.9s">Пушкин, Лермонтов, Крылов шығармаларын қазақ тіліне аударды. <em>«Қараңғы түнде тау қалғып»</em> — Гёте өлеңінің Лермонтов арқылы жеткен қазақша үні.</p>
+  <aside class="notes">Абай Шығыс пен Батыс мәдениетін тоғыстырған ойшыл. Ол Фирдауси, Низами, Сағди, Хафиз, Науаи, Физули сияқты Шығыс классиктерін түпнұсқадан оқыды. Семейдегі жер аударылған орыс зиялыларымен, соның ішінде Евгений Михаэлиспен танысуы оған орыс және Еуропа әдебиетіне жол ашты. Ол Пушкиннің «Евгений Онегинінен» үзінділерді, Лермонтов өлеңдерін, Крылов мысалдарын қазақ тіліне аударды. «Қараңғы түнде тау қалғып» — Гёте өлеңінің Лермонтов арқылы жеткен қазақша нұсқасы.</aside>
+</section>
+
+<!-- ================= 9 ================= -->
+<section class="slide s9" id="s9" data-title="Мәңгілік мұра" data-tr="zoom" data-ppt-tr="morph" aria-roledescription="слайд" aria-label="9 / 10">
+  <div class="bg"><div class="tex" style="opacity:.04"></div><div class="vignette"></div><div class="frame"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pp med" data-a="fade" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:150px;left:1716px;top:52px"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <p class="pp eyebrow a" data-a="up" style="left:140px;top:118px;--t:.15s">Мәңгілік мұра</p>
+  <h2 class="pp quote9 gold a" data-a="up" style="left:136px;top:150px;width:600px;--t:.3s">«Өлсе өлер табиғат, адам өлмес»</h2>
+  <div class="pp legacy a" data-a="up" style="left:140px;top:388px;--t:.6s">
+    <div><b>«Абай жолы»</b><span>Мұхтар Әуезовтің төрт томдық роман-эпопеясы ақын бейнесін әлемге танытты.</span></div>
+    <div><b>1995 · ЮНЕСКО</b><span>Абайдың 150 жылдығы ЮНЕСКО шешімімен бүкіл әлемде аталып өтті.</span></div>
+    <div><b>Жидебай</b><span>Абай мен Шәкәрім кесенесі — ұлт руханиятының қасиетті орны.</span></div>
+    <div><b>Ескерткіштер</b><span>Алматы, Семей, Мәскеу, Париж, Будапешт, Каир — Абай есімі әлем елдерінде.</span></div>
+  </div>
+  <figure class="pp tile a" data-a="up" data-pp-split="1" style="left:760px;top:150px;width:270px;height:370px;--t:.5s"><img class="photo" src="{{IMG:moscow_monument.jpg}}" alt="Мәскеудегі Абай ескерткіші"><figcaption>Мәскеу</figcaption></figure>
+  <figure class="pp tile a" data-a="up" data-pp-split="1" style="left:1048px;top:150px;width:472px;height:370px;--t:.65s"><img class="photo" src="{{IMG:almaty_monument.jpg}}" alt="Алматыдағы Абай ескерткіші" style="object-position:40% 50%"><figcaption>Алматы</figcaption></figure>
+  <figure class="pp tile a" data-a="up" data-pp-split="1" style="left:1538px;top:150px;width:242px;height:370px;--t:.8s"><img class="photo" src="{{IMG:paris_bust.jpg}}" alt="Париждегі Абай ескерткіші"><figcaption>Париж</figcaption></figure>
+  <figure class="pp tile a" data-a="up" data-pp-split="1" style="left:760px;top:538px;width:700px;height:422px;--t:.95s"><img class="photo" src="{{IMG:zhidebay_road.jpg}}" alt="Жидебайдағы Абай мен Шәкәрім кесенесі"><figcaption>Жидебай кесенесі</figcaption></figure>
+  <figure class="pp tile a" data-a="up" data-pp-split="1" style="left:1478px;top:538px;width:302px;height:422px;--t:1.1s"><img class="photo" src="{{IMG:abai_joly.jpg}}" alt="Мұхтар Әуезовтің «Абай жолы» романының томдары" style="object-position:50% 30%"><figcaption>«Абай жолы»</figcaption></figure>
+  <figure class="pp note-card a" data-a="zoom" style="left:1118px;top:812px;width:320px;--t:1.5s"><img src="{{IMG:tenge_1993.jpg}}" alt="1993 жылғы 20 теңгелік банкнот, Абай бейнесімен"><figcaption>20 теңге, 1993</figcaption></figure>
+  <aside class="notes">Абай мұрасы мәңгілік. «Өлсе өлер табиғат, адам өлмес» — ақынның өзі айтқандай, рухы мәңгі жасайды. Мұхтар Әуезовтің «Абай жолы» роман-эпопеясы ақын бейнесін әлемге танытты. 1995 жылы ЮНЕСКО шешімімен Абайдың 150 жылдығы бүкіл әлемде аталып өтті. Жидебайда Абай мен Шәкәрім кесенесі тұр. Алматы, Семей, Мәскеу, Париж, Будапешт, Каир сияқты қалаларда ақынға ескерткіштер орнатылған. 1993 жылғы 20 теңгелік банкнотта да Абай бейнесі бар.</aside>
+</section>
+
+<!-- ================= 10 ================= -->
+<section class="slide s10" id="s10" data-title="Назарларыңызға рахмет!" data-tr="curtain" data-ppt-tr="morph" aria-roledescription="слайд" aria-label="10 / 10">
+  <div class="bg"><div class="rays"></div><div class="tex"></div><div class="vignette"></div><div class="frame"><i></i><i></i><i></i><i></i></div></div>
+  <div class="pp med a" data-a="zoom" data-pp-name="!!medallion" data-pp-shared="medallion" data-pp-loop="spin" style="--w:760px;left:100px;top:160px;--t:.1s;--du:1.6s"><div class="halo"></div><div class="ring"></div><div class="disc spin"></div></div>
+  <figure class="pp arch a" role="img" aria-label="Абай Құнанбайұлының портреті" data-a="rise" data-pp-name="!!portrait" data-pp-shared="portrait-arch" style="left:268px;top:250px;width:424px;height:595px;--t:.35s;--du:1.5s"><div class="in"></div></figure>
+  <p class="pp eyebrow a" data-a="up" style="left:944px;top:270px;--t:.6s">Абай өсиеті</p>
+  <blockquote class="pp quote10 a" data-a="wipe" style="left:940px;top:310px;width:880px;--t:.85s;--du:1.8s">Сен де бір кірпіш дүниеге,<br><span class="em">Кетігін тап та, бар қалан!</span></blockquote>
+  <p class="pp cite10 a" data-a="up" style="left:944px;top:534px;--t:1.6s">Абай, «Әсемпаз болма әрнеге»</p>
+  <div class="pp orn a" data-a="zoom" style="left:944px;top:640px;--t:1.9s"><i></i><b></b><i></i></div>
+  <p class="pp thanks letters a" data-a="zoomout" data-pa="zoomout" style="left:940px;top:698px;--t:2.1s;--du:1.3s" aria-label="Назарларыңызға рахмет!">Назарларыңызға рахмет!</p>
+  <p class="pp credit10 a" data-a="fade" style="left:944px;top:970px;width:860px;--t:2.8s">Суреттер: автордың кілемі мен портреті; Wikimedia Commons (PD, CC BY, CC BY-SA) — авторлары жазбаларда және «Дереккөздер» бөлімінде.</p>
+  <aside class="notes">Абайдың «Сен де бір кірпіш дүниеге, кетігін тап та, бар қалан!» деген өсиеті әрқайсымызға арналған: әр адам қоғамнан өз орнын тауып, оны өз еңбегімен толтыруы керек. Назарларыңызға рахмет!
+{{CREDITS_TEXT}}</aside>
+</section>
+
+<div class="curtain" aria-hidden="true"><div class="cp cl"></div><div class="cp cr"></div><div class="seam"></div></div>
+<div class="iris-ring" aria-hidden="true"></div>
+<canvas id="dust" width="1920" height="1080" aria-hidden="true"></canvas>
+</div>
+</div>
+
+<div class="progress" aria-hidden="true"><i></i></div>
+<div class="hud" id="hud">
+  <button type="button" id="bCredits" title="Суреттердің дереккөздері">Дереккөздер</button>
+  <button type="button" id="bPlay" aria-pressed="false" title="Авто-шоу (P)"><svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg><span>Авто-шоу</span></button>
+  <button type="button" id="bPrev" aria-label="Алдыңғы слайд"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <span class="count" id="count" aria-live="polite">01 / 10</span>
+  <button type="button" id="bNext" aria-label="Келесі слайд"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <button type="button" id="bFull" aria-label="Толық экран (F)"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+</div>
+<div class="hint" id="hint">→ / бос орын — келесі слайд · ← — алдыңғы · F — толық экран</div>
+<div class="credits" id="credits" hidden>
+  <div class="box" role="dialog" aria-modal="true" aria-labelledby="crTitle">
+    <h2 id="crTitle">Дереккөздер</h2>
+    <p>Кілем мен Абай портреті — презентация авторының суреттері. Қалған суреттер Wikimedia Commons сайтынан алынды; кесілген, өлшемі өзгертілген.</p>
+    <ol>{{CREDITS_HTML}}</ol>
+    <p>Қаріптер: Cormorant Garamond, Montserrat (SIL Open Font License).</p>
+    <button type="button" id="bCrClose">Жабу</button>
+  </div>
+</div>
+<!--ARTIFACT-BODY-END-->
+<script>
+(() => {
+  "use strict";
+  const root = document.documentElement;
+  const EXPORT = /[?&]export\b/.test(location.search);
+  if (EXPORT) root.classList.add("exp");
+  const stage = document.getElementById("stage");
+  const viewport = document.getElementById("viewport");
+  const slides = Array.from(stage.querySelectorAll(".slide"));
+  const N = slides.length;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let cur = 0, busy = false;
+
+  /* ---------- fit the 1920x1080 stage into the window ---------- */
+  function fit() {
+    if (EXPORT) { stage.style.transform = "none"; return; }
+    const cs = getComputedStyle(viewport);
+    const pl = parseFloat(cs.paddingLeft), pr = parseFloat(cs.paddingRight);
+    const w = viewport.clientWidth - pl - pr, h = viewport.clientHeight;
+    const s = Math.min(w / 1920, h / 1080);
+    const x = pl + (w - 1920 * s) / 2, y = (h - 1080 * s) / 2;
+    stage.style.transform = `translate(${x}px, ${y}px) scale(${s})`;
+  }
+  addEventListener("resize", fit);
+  fit();
+
+  /* ---------- split big titles into letters ---------- */
+  if (!EXPORT) {
+    stage.querySelectorAll(".letters").forEach(el => {
+      const txt = el.textContent; el.textContent = "";
+      let i = 0;
+      for (const chr of txt) {
+        const s = document.createElement("span");
+        s.className = "ch"; s.setAttribute("aria-hidden", "true");
+        if (chr === " ") { s.innerHTML = "&nbsp;"; } else { s.textContent = chr; s.style.setProperty("--i", i++); }
+        el.appendChild(s);
+      }
+    });
+  } else {
+    stage.querySelectorAll(".letters").forEach(el => {
+      const txt = el.textContent; el.innerHTML = "";
+      const s = document.createElement("span"); s.className = "ch"; s.textContent = txt; el.appendChild(s);
+    });
+  }
+
+  /* ---------- count-up numbers ---------- */
+  function countUp(slide) {
+    slide.querySelectorAll("[data-count]").forEach(el => {
+      const target = +el.dataset.count, suf = el.dataset.suffix || "";
+      const host = el.closest(".a") || el;
+      const delay = (parseFloat(getComputedStyle(host).getPropertyValue("--t")) || 0) * 1000;
+      const dur = 1600, t0 = performance.now() + delay;
+      el.textContent = "0" + suf;
+      const tick = now => {
+        const p = Math.min(1, Math.max(0, (now - t0) / dur));
+        const e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * e) + suf;
+        if (p < 1 && slide.classList.contains("play")) requestAnimationFrame(tick);
+        else el.textContent = target + suf;
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+
+  /* ---------- gold dust ---------- */
+  const cv = document.getElementById("dust"), cx = cv.getContext("2d");
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const motes = Array.from({ length: 110 }, () => ({
+    x: rnd() * 1920, y: rnd() * 1080, r: .6 + rnd() * 2.2, vx: (rnd() - .5) * .18, vy: -(.08 + rnd() * .35),
+    a: .15 + rnd() * .55, tw: rnd() * Math.PI * 2, ts: .01 + rnd() * .03
+  }));
+  const sprite = document.createElement("canvas"); sprite.width = sprite.height = 32;
+  { const g = sprite.getContext("2d"), gr = g.createRadialGradient(16, 16, 0, 16, 16, 16);
+    gr.addColorStop(0, "rgba(255,240,200,1)"); gr.addColorStop(.25, "rgba(246,223,164,.85)"); gr.addColorStop(1, "rgba(216,178,110,0)");
+    g.fillStyle = gr; g.fillRect(0, 0, 32, 32); }
+  function drawDust(step) {
+    cx.clearRect(0, 0, 1920, 1080);
+    for (const m of motes) {
+      if (step) {
+        m.x += m.vx; m.y += m.vy; m.tw += m.ts;
+        if (m.y < -10) { m.y = 1090; m.x = Math.random() * 1920; }
+        if (m.x < -10) m.x = 1930; if (m.x > 1930) m.x = -10;
+      }
+      const al = m.a * (.55 + .45 * Math.sin(m.tw));
+      const s = m.r * 6;
+      cx.globalAlpha = al; cx.drawImage(sprite, m.x - s / 2, m.y - s / 2, s, s);
+    }
+    cx.globalAlpha = 1;
+  }
+  let dustOn = !EXPORT && !reduce;
+  function loop() { if (dustOn && !document.hidden) drawDust(true); requestAnimationFrame(loop); }
+  drawDust(false);
+  if (dustOn) requestAnimationFrame(loop);
+
+  /* ---------- slide state ---------- */
+  function setPlay(s, on) {
+    s.classList.remove("play");
+    if (on) { void s.offsetWidth; s.classList.add("play"); countUp(s); }
+  }
+  const hud = document.getElementById("hud"), count = document.getElementById("count"), bar = document.querySelector(".progress i");
+  function updateHud() {
+    count.textContent = String(cur + 1).padStart(2, "0") + " / " + String(N).padStart(2, "0");
+    bar.style.width = ((cur + 1) / N * 100) + "%";
+    slides.forEach((s, i) => s.setAttribute("aria-hidden", i === cur ? "false" : "true"));
+    try { history.replaceState(null, "", "#s" + (cur + 1)); } catch (e) {}
+  }
+
+  /* ---------- transitions ---------- */
+  const curtain = stage.querySelector(".curtain"), cl = curtain.querySelector(".cl"), cr = curtain.querySelector(".cr"), seam = curtain.querySelector(".seam");
+  const ring = stage.querySelector(".iris-ring");
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const anim = (el, kf, o) => el.animate(kf, Object.assign({ fill: "both" }, o)).finished;
+
+  async function transition(type, from, to) {
+    if (reduce) type = "fade";
+    to.classList.add("is-active"); from.classList.add("is-leaving"); from.classList.remove("is-active");
+    const E = "cubic-bezier(.76,0,.2,1)";
+    if (type === "curtain") {
+      curtain.style.visibility = "visible";
+      to.style.visibility = "hidden";
+      await Promise.all([
+        anim(cl, [{ transform: "translateX(-101%)" }, { transform: "translateX(0)" }], { duration: 720, easing: "cubic-bezier(.6,0,.4,1)" }),
+        anim(cr, [{ transform: "translateX(101%) scaleX(-1)" }, { transform: "translateX(0) scaleX(-1)" }], { duration: 720, easing: "cubic-bezier(.6,0,.4,1)" })
+      ]);
+      seam.animate([{ opacity: 0 }, { opacity: 1, offset: .35 }, { opacity: 0 }], { duration: 900, easing: "ease-out" });
+      from.classList.remove("is-leaving"); setPlay(from, false);
+      to.style.visibility = ""; setPlay(to, true);
+      await wait(260);
+      await Promise.all([
+        anim(cl, [{ transform: "translateX(0)" }, { transform: "translateX(-101%)" }], { duration: 1100, easing: E }),
+        anim(cr, [{ transform: "translateX(0) scaleX(-1)" }, { transform: "translateX(101%) scaleX(-1)" }], { duration: 1100, easing: E })
+      ]);
+      curtain.style.visibility = "hidden";
+      cl.getAnimations().forEach(a => a.cancel()); cr.getAnimations().forEach(a => a.cancel());
+      return;
+    }
+    setPlay(to, true);
+    let pf, pt;
+    if (type === "push") {
+      pf = anim(from, [{ transform: "none", filter: "brightness(1)" }, { transform: "translateX(-38%) scale(.9)", filter: "brightness(.35)" }], { duration: 1150, easing: E });
+      pt = anim(to, [{ transform: "translateX(100%)" }, { transform: "none" }], { duration: 1150, easing: E });
+    } else if (type === "zoom") {
+      pf = anim(from, [{ transform: "none", opacity: 1, filter: "blur(0)" }, { transform: "scale(1.28)", opacity: 0, filter: "blur(14px)" }], { duration: 1000, easing: "cubic-bezier(.5,0,.3,1)" });
+      pt = anim(to, [{ transform: "scale(.86)", opacity: 0, filter: "blur(10px)" }, { transform: "none", opacity: 1, filter: "blur(0)" }], { duration: 1200, easing: "cubic-bezier(.2,.7,.2,1)", delay: 150 });
+    } else if (type === "iris") {
+      ring.animate([{ transform: "scale(.05)", opacity: 0 }, { opacity: 1, offset: .15 }, { transform: "scale(12)", opacity: 0 }], { duration: 1300, easing: "cubic-bezier(.4,0,.2,1)" });
+      pt = anim(to, [{ clipPath: "circle(0px at 50% 50%)" }, { clipPath: "circle(1150px at 50% 50%)" }], { duration: 1300, easing: "cubic-bezier(.4,0,.2,1)" });
+      pf = anim(from, [{ transform: "none", filter: "brightness(1)" }, { transform: "scale(.94)", filter: "brightness(.4)" }], { duration: 1300, easing: E });
+    } else if (type === "back") {
+      pf = anim(from, [{ transform: "none" }, { transform: "translateX(100%)" }], { duration: 900, easing: E });
+      pt = anim(to, [{ transform: "translateX(-38%) scale(.9)", filter: "brightness(.35)" }, { transform: "none", filter: "brightness(1)" }], { duration: 900, easing: E });
+    } else {
+      pf = anim(from, [{ opacity: 1 }, { opacity: 0 }], { duration: 700 });
+      pt = anim(to, [{ opacity: 0 }, { opacity: 1 }], { duration: 700 });
+    }
+    await Promise.all([pf, pt]);
+    from.classList.remove("is-leaving"); setPlay(from, false);
+    from.getAnimations().forEach(a => a.cancel()); to.getAnimations().forEach(a => a.cancel());
+  }
+
+  async function go(n, dir) {
+    if (busy || n === cur || n < 0 || n >= N) return;
+    busy = true;
+    const from = slides[cur], to = slides[n];
+    const type = dir > 0 ? (n === cur + 1 ? (from.dataset.tr || "fade") : "fade") : (n === cur - 1 ? "back" : "fade");
+    cur = n; updateHud();
+    try { await transition(type, from, to); } finally { busy = false; }
+  }
+  const next = () => go(cur + 1, 1), prev = () => go(cur - 1, -1);
+
+  /* ---------- controls ---------- */
+  let auto = null;
+  const bPlay = document.getElementById("bPlay");
+  function setAuto(on) {
+    clearInterval(auto); auto = null; bPlay.setAttribute("aria-pressed", on ? "true" : "false");
+    if (on) auto = setInterval(() => { if (cur < N - 1) next(); else setAuto(false); }, 9000);
+  }
+  function stopAuto() { if (auto) setAuto(false); }
+  async function toggleFull() {
+    try { if (document.fullscreenElement) await document.exitFullscreen(); else await root.requestFullscreen(); } catch (e) {}
+    setTimeout(fit, 120);
+  }
+  document.addEventListener("fullscreenchange", () => setTimeout(fit, 60));
+  document.getElementById("bNext").addEventListener("click", e => { e.stopPropagation(); stopAuto(); next(); });
+  document.getElementById("bPrev").addEventListener("click", e => { e.stopPropagation(); stopAuto(); prev(); });
+  document.getElementById("bFull").addEventListener("click", e => { e.stopPropagation(); toggleFull(); });
+  bPlay.addEventListener("click", e => { e.stopPropagation(); setAuto(!auto); });
+  const credits = document.getElementById("credits");
+  const openCredits = () => { stopAuto(); credits.hidden = false; document.getElementById("bCrClose").focus(); };
+  const closeCredits = () => { credits.hidden = true; document.getElementById("bCredits").focus(); };
+  document.getElementById("bCredits").addEventListener("click", e => { e.stopPropagation(); openCredits(); });
+  document.getElementById("bCrClose").addEventListener("click", closeCredits);
+  credits.addEventListener("click", e => { if (e.target === credits) closeCredits(); });
+
+  addEventListener("keydown", e => {
+    if (!credits.hidden) { if (e.key === "Escape") closeCredits(); return; }
+    if (e.target.closest && e.target.closest("button") && (e.key === " " || e.key === "Enter")) return;
+    const k = e.key;
+    if (["ArrowRight", "ArrowDown", "PageDown", " ", "Enter"].includes(k)) { e.preventDefault(); stopAuto(); next(); }
+    else if (["ArrowLeft", "ArrowUp", "PageUp", "Backspace"].includes(k)) { e.preventDefault(); stopAuto(); prev(); }
+    else if (k === "Home") { stopAuto(); go(0, -1); }
+    else if (k === "End") { stopAuto(); go(N - 1, 1); }
+    else if (k === "f" || k === "F" || k === "а" || k === "А") toggleFull();
+    else if (k === "p" || k === "P" || k === "з" || k === "З") setAuto(!auto);
+    else if (/^[0-9]$/.test(k)) { stopAuto(); const n = k === "0" ? 9 : +k - 1; go(n, n > cur ? 1 : -1); }
+  });
+  viewport.addEventListener("click", e => {
+    if (e.target.closest("button")) return;
+    stopAuto();
+    const r = stage.getBoundingClientRect();
+    (e.clientX < r.left + r.width * .3) ? prev() : next();
+  });
+  let tx = null;
+  viewport.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+  viewport.addEventListener("touchend", e => {
+    if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null;
+    if (Math.abs(dx) > 40) { stopAuto(); dx < 0 ? next() : prev(); }
+  });
+  let idleT; const hint = document.getElementById("hint");
+  function wake() { hud.classList.remove("idle"); clearTimeout(idleT); idleT = setTimeout(() => hud.classList.add("idle"), 2600); }
+  addEventListener("mousemove", wake); addEventListener("keydown", wake); addEventListener("touchstart", wake, { passive: true });
+  setTimeout(() => hint.classList.add("gone"), 5200);
+
+  /* ---------- start ---------- */
+  if (!EXPORT) {
+    const m = /^#s(\d+)$/.exec(location.hash);
+    if (m) { const n = Math.min(N, Math.max(1, +m[1])) - 1; if (n) { slides[0].classList.remove("is-active"); slides[n].classList.add("is-active"); cur = n; } }
+    updateHud(); wake();
+    const first = slides[cur];
+    const imgs = Array.from(first.querySelectorAll("img")).map(i => i.decode ? i.decode().catch(() => {}) : null);
+    Promise.race([Promise.all([document.fonts.ready, ...imgs]), wait(2500)]).then(() => setPlay(first, true));
+  }
+
+  /* ---------- export hooks for the PowerPoint builder ---------- */
+  if (EXPORT) {
+    const num = (el, v, d) => { const x = parseFloat(getComputedStyle(el).getPropertyValue(v)); return isNaN(x) ? d : x; };
+    window.__exp = {
+      count: N,
+      slide(i) {
+        root.classList.remove("iso-bg", "iso-el");
+        slides.forEach((s, k) => { s.classList.toggle("is-active", k === i); s.classList.remove("play"); });
+        const s = slides[i];
+        const els = Array.from(s.querySelectorAll(":scope > .pp")).map((el, k) => {
+          el.dataset.k = k;
+          const r = el.getBoundingClientRect();
+          const photo = el.dataset.ppSplit ? el.querySelector("img.photo") : null;
+          let pr = null;
+          if (photo) { // the visible photo area is the figure's content box
+            const cs = getComputedStyle(el), f = v => parseFloat(cs[v]) || 0;
+            const l = f("borderLeftWidth") + f("paddingLeft"), t = f("borderTopWidth") + f("paddingTop");
+            const rr = f("borderRightWidth") + f("paddingRight"), bb = f("borderBottomWidth") + f("paddingBottom");
+            pr = { left: r.left + l, top: r.top + t, width: r.width - l - rr, height: r.height - t - bb };
+          }
+          const isAnim = el.classList.contains("a");
+          return {
+            k, anim: el.dataset.pa || (isAnim ? el.dataset.a : null), t: isAnim ? num(el, "--t", 0) : 0, du: isAnim ? num(el, "--du", 1.1) : 0,
+            name: el.dataset.ppName || null, shared: el.dataset.ppShared || null, loop: el.dataset.ppLoop || null,
+            fmt: el.dataset.ppFmt || "png", split: !!photo,
+            box: { x: r.left, y: r.top, w: r.width, h: r.height },
+            pbox: pr ? { x: pr.left, y: pr.top, w: pr.width, h: pr.height } : null,
+            alt: (el.getAttribute("aria-label") || el.getAttribute("alt") || (el.querySelector("img[alt]") && el.querySelector("img[alt]").alt) || el.innerText || "").replace(/\s+/g, " ").trim().slice(0, 300)
+          };
+        });
+        return { title: s.dataset.title, tr: s.dataset.pptTr || "fade", notes: (s.querySelector(".notes") || {}).textContent || "", els };
+      },
+      isolate(i, k, mode) {
+        const s = slides[i];
+        root.classList.remove("iso-bg", "iso-el");
+        s.querySelectorAll(".pp").forEach(el => el.classList.remove("iso-on", "iso-frame", "iso-photo"));
+        if (k < 0) { root.classList.add("iso-bg"); return; }
+        root.classList.add("iso-el");
+        const el = s.querySelector(`:scope > .pp[data-k="${k}"]`);
+        el.classList.add("iso-on"); if (mode) el.classList.add("iso-" + mode);
+      }
+    };
+  }
+})();
+</script>
+</body>
+</html>
