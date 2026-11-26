@@ -1,0 +1,600 @@
+{
+  "prompt_type": "animated_motion_presentation",
+  "version": "1.0",
+  "role": "You are a senior graphic designer and motion designer who builds award-level animated academic presentations (Apple Keynote / Pitch / After Effects quality). You combine scientific accuracy with rich, cinematic visual design.",
+  "task": "Create a 15-slide, fully animated 16:9 presentation in the Kazakh language that teaches the basics of the Python programming language through the cytology topic 'Euglena' (эвглена): data, information, building models and building histograms. Every slide must have its own entrance choreography, a smooth slide transition and subtle ambient motion. Use ONLY the Kazakh on-screen text given below, word for word.",
+
+  "project": {
+    "title": "Деректерден модельге",
+    "subtitle": "Python тілін эвглена мысалында түсіну: деректер, мәліметтер, модельдер және гистограмма құру",
+    "discipline": "Цитология + Python бағдарламалау",
+    "institution": "Академик Е.А. Бөкетов атындағы Қарағанды Ұлттық Зерттеу университеті",
+    "department": "Ботаника кафедрасы",
+    "group": "Бт-25-2К",
+    "author": "Ернұр Ерланұлы",
+    "city_year": "Қарағанды · 2026",
+    "language": "kk (Kazakh, Cyrillic)",
+    "audience": "University students and lecturer (biology / botany); no programming background assumed",
+    "talk_duration_minutes": 12,
+    "slide_count": 15,
+    "aspect_ratio": "16:9",
+    "canvas_px": { "width": 1920, "height": 1080 },
+    "fps": 60
+  },
+
+  "content_rules": [
+    "All visible text in Kazakh exactly as written in this prompt; Latin is allowed only for Python code, library names and the species name 'Euglena viridis'.",
+    "Fonts MUST render every Kazakh letter correctly: ә ғ қ ң ө ұ ү һ і (Cyrillic + Cyrillic-Extended). Never substitute missing glyphs with a fallback font.",
+    "Python code must be real, runnable Python 3 and must be shown exactly as given (indentation preserved, comments in Kazakh).",
+    "All numbers on charts must match the dataset below (seed = 2025, n = 120). Mark the data as 'оқу мақсатындағы модельденген деректер' (simulated for teaching).",
+    "Maximum 40 words of body text per slide; the rest is visual (diagrams, code, charts).",
+    "One key idea per slide; strong visual hierarchy: eyebrow → title → visual → short caption."
+  ],
+
+  "dataset": {
+    "description": "120 эвглена жасушасының модельденген өлшемдері (NumPy, seed = 2025)",
+    "generation_code": "rng = np.random.default_rng(2025); n = 120; df = pd.DataFrame({'ұзындық': rng.normal(52, 5, n).round(1), 'ені': rng.normal(16, 1.5, n).round(1), 'жылдамдық': rng.normal(90, 15, n).round(0)})",
+    "first_8_rows": [
+      { "№": 0, "ұзындық": 40.9, "ені": 15.4, "жылдамдық": 114 },
+      { "№": 1, "ұзындық": 52.1, "ені": 17.3, "жылдамдық": 115 },
+      { "№": 2, "ұзындық": 49.3, "ені": 18.7, "жылдамдық": 94 },
+      { "№": 3, "ұзындық": 46.4, "ені": 16.7, "жылдамдық": 73 },
+      { "№": 4, "ұзындық": 39.8, "ені": 18.3, "жылдамдық": 93 },
+      { "№": 5, "ұзындық": 55.8, "ені": 17.5, "жылдамдық": 68 },
+      { "№": 6, "ұзындық": 48.2, "ені": 15.2, "жылдамдық": 87 },
+      { "№": 7, "ұзындық": 53.3, "ені": 16.4, "жылдамдық": 78 }
+    ],
+    "length_statistics_um": { "count": 120, "mean": 51.9, "std": 5.7, "min": 37.5, "q1": 48.5, "median": 52.4, "q3": 55.6, "max": 66.7 },
+    "histogram_bin_4um": { "edges": [36, 40, 44, 48, 52, 56, 60, 64, 68], "counts": [5, 9, 15, 27, 39, 17, 7, 1] },
+    "histogram_bin_8um": { "edges": [36, 44, 52, 60, 68], "counts": [14, 42, 56, 8] },
+    "histogram_bin_2um": { "edges": [36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68], "counts": [1, 4, 2, 7, 2, 13, 10, 17, 19, 20, 10, 7, 6, 1, 0, 1] },
+    "logistic_growth": { "N0": 10, "K": 1000, "r_per_day": 0.69, "t_days": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14], "N": [10,20,39,74,138,241,388,558,716,834,909,952,976,988,994] }
+  },
+
+  "design_system": {
+    "concept": "BIO-DIGITAL DARK-FIELD MICROSCOPY: the slides look like a glowing dark-field microscope view where living green euglena cells swim, merged with a premium code-editor aesthetic. Chlorophyll green = biology, Python blue + yellow = code.",
+    "mood_keywords": ["cinematic", "scientific", "premium", "glowing chlorophyll", "glassmorphism", "clean code editor", "deep ocean teal", "elegant"],
+    "color_palette": {
+      "background_deep": { "hex": "#03110F", "role": "main background (dark-field microscope)" },
+      "background_2": { "hex": "#062420", "role": "radial glow behind content" },
+      "surface_glass": { "hex": "rgba(255,255,255,0.045)", "role": "glass cards, 1px border rgba(180,255,220,0.14), backdrop-blur 18px" },
+      "chlorophyll": { "hex": "#3DDC97", "role": "PRIMARY accent: biology, highlights, histogram bars" },
+      "lime_glow": { "hex": "#B6F36B", "role": "secondary highlight, strings in code" },
+      "python_blue": { "hex": "#5B9BD5", "role": "code accents, Python keywords" },
+      "python_yellow": { "hex": "#FFD43B", "role": "numbers, mean line, key figures" },
+      "stigma_red": { "hex": "#FF5A5F", "role": "eyespot only + warnings (use sparingly, < 3% of area)" },
+      "university_blue": { "hex": "#3D6CB3", "role": "institution block on title and final slide" },
+      "text_primary": { "hex": "#EAF7F1", "role": "titles and body" },
+      "text_muted": { "hex": "#8FB3A8", "role": "captions, axis labels" }
+    },
+    "gradients": {
+      "title_text": "linear-gradient(100deg, #EAF7F1 0%, #B6F36B 45%, #3DDC97 70%, #5B9BD5 100%) — animated shimmer, background-size 200%",
+      "bio_to_code": "linear-gradient(90deg, #3DDC97, #5B9BD5)",
+      "glow_orbs": "radial-gradient circles of #3DDC97 and #5B9BD5 at 12–18% opacity, blur 120px, slowly drifting"
+    },
+    "typography": {
+      "display": { "font": "Unbounded", "weights": [600, 800], "use": "slide titles, big numbers", "size_px": "72–110", "letter_spacing": "-0.02em", "line_height": 1.05 },
+      "body": { "font": "Manrope", "weights": [400, 600, 800], "use": "body text, labels, captions", "size_px": "26–34 body, 18–22 captions", "line_height": 1.45 },
+      "code": { "font": "JetBrains Mono", "weights": [400, 600], "use": "all code and raw data", "size_px": "22–28", "ligatures": true },
+      "accent_serif": { "font": "Cormorant Garamond Italic", "weights": [500, 600], "use": "Latin species name 'Euglena viridis', elegant quotes", "size_px": "34–48" },
+      "eyebrow": { "font": "Manrope 800", "size_px": 18, "letter_spacing": "0.28em", "case": "UPPERCASE", "color": "#3DDC97" },
+      "kazakh_glyph_check": "All four families support Cyrillic-Extended (ә ғ қ ң ө ұ ү һ і) on Google Fonts."
+    },
+    "layout_grid": {
+      "columns": 12,
+      "safe_margins_px": { "left": 120, "right": 120, "top": 110, "bottom": 100 },
+      "gutter_px": 32,
+      "card_radius_px": 28,
+      "rule": "Generous negative space; asymmetric 5/7 or 7/5 splits for text vs. visual; never more than 3 visual groups per slide."
+    },
+    "persistent_chrome": {
+      "top_left": "small brand mark '● ЭВГЛЕНА × PYTHON' (Manrope 800, 16px, tracking 0.24em)",
+      "top_right": "slide counter '03 / 15' in JetBrains Mono",
+      "bottom": "2px progress line with chlorophyll → python-blue gradient that grows per slide",
+      "footer_left": "Ернұр Ерланұлы · Бт-25-2К (muted, 16px)"
+    },
+    "visual_elements": [
+      "Hand-crafted vector euglena cell: spindle body, pellicle stripes, 10–12 green chloroplasts, red stigma (eyespot), pulsing contractile vacuole, nucleus with nucleolus, white paramylon grains, long waving flagellum.",
+      "Code windows in 'editor' style: dark #04191A panel, three traffic-light dots, file-name tab (e.g. 'euglena.py'), line numbers, soft inner glow.",
+      "Glass cards with 1px luminous border and soft green shadow.",
+      "Charts: thin axes, no heavy grid, rounded bar tops, value labels above bars, dashed yellow mean line.",
+      "Micro-grid of dots (like a counting chamber / hemocytometer) at 6% opacity as texture.",
+      "Film grain overlay at 4% opacity + circular microscope vignette."
+    ],
+    "code_syntax_colors": {
+      "keyword": "#7FB2FF", "string": "#B6F36B", "number": "#FFD43B", "comment": "#6E8F86 italic", "function": "#3DDC97", "builtin": "#FF9E64", "default": "#D9EDE6"
+    },
+    "logo_usage": "Use the attached university emblem (round badge, white background) inside a white circular disc with a slow rotating conic-gradient ring. Show it on slide 1 (large) and slide 15 (medium). Never recolor or crop the emblem."
+  },
+
+  "motion_system": {
+    "principles": [
+      "Motion explains the content: data flows, cells divide, curves draw, bars grow.",
+      "Every slide has 3 layers of motion: (1) slide transition, (2) staggered entrance of elements, (3) quiet ambient loop.",
+      "Stagger elements in reading order: eyebrow → title → visual → details → caption.",
+      "No bouncing text, no spinning titles; elegance over noise."
+    ],
+    "easing": {
+      "enter": "cubic-bezier(0.16, 1, 0.3, 1)  (expo-out)",
+      "exit": "cubic-bezier(0.7, 0, 0.84, 0)  (expo-in)",
+      "overshoot": "cubic-bezier(0.34, 1.56, 0.64, 1)  (only for bars, chips, counters)",
+      "ambient": "ease-in-out sine"
+    },
+    "durations_ms": { "micro": 300, "element_enter": 900, "title_mask": 1100, "slide_transition": 1100, "chart_draw": 1600, "stagger_step": 110 },
+    "entrance_presets": {
+      "rise": "translateY(48px) + opacity 0 → 0; 900ms expo-out",
+      "mask_reveal": "clip-path inset(0 100% 0 0) → inset(0); for titles, left-to-right",
+      "blur_in": "blur(16px) + scale(1.06) + opacity 0 → sharp",
+      "pop": "scale(0.6) + opacity 0 → 1 with overshoot",
+      "line_by_line_code": "each code line wipes in left-to-right, 110ms apart, cursor blinks on the last line",
+      "path_draw": "SVG stroke-dashoffset 1 → 0 (diagram lines, curves, connectors)",
+      "grow_y": "histogram bars scaleY 0 → 1 from baseline, overshoot, 70ms stagger",
+      "count_up": "numbers count from 0 to the final value in 1400ms with expo-out"
+    },
+    "slide_transitions": {
+      "iris": "new slide opens as an expanding circle from center (like adjusting a microscope diaphragm), 1100ms",
+      "focus_pull": "new slide comes from blur(20px) scale(1.12) to sharp — like focusing a microscope, 1100ms",
+      "wipe": "clip-path wipe left → right with a thin glowing green edge, 1000ms",
+      "blinds": "opens from the horizontal center line outward (inset 50% → 0), 1000ms",
+      "rise": "slides up 80px with fade, 900ms",
+      "exit_for_all": "previous slide scales to 0.94, blurs 10px, fades out in 800ms underneath the new one"
+    },
+    "ambient_motion": {
+      "background_cells": "12–16 semi-transparent euglena cells swim slowly across the background (canvas/particles), each with a sine-wave flagellum, slight body metaboly (shape breathing), opacity 15–35%, parallax depth by size.",
+      "dust_particles": "60 tiny glowing particles drifting upward (Brownian motion)",
+      "glow_orbs": "2–3 large blurred color orbs drift in 20–30 s loops",
+      "hero_cell": "main euglena illustrations float ±10px, flagellum waves 1.2 s loop, contractile vacuole pulses 2 s loop"
+    },
+    "reduced_motion": "If prefers-reduced-motion is on, replace all motion with 300ms fades and stop background swimming."
+  },
+
+  "slides": [
+    {
+      "number": 1,
+      "id": "title",
+      "layout": "Hero split: left 7 columns text, right 5 columns giant euglena illustration with orbiting code chips.",
+      "transition_in": "focus_pull",
+      "content": {
+        "institution_block": {
+          "logo": "attached university emblem in a white disc (140px) with rotating ring",
+          "line_1": "Академик Е.А. Бөкетов атындағы Қарағанды Ұлттық Зерттеу университеті",
+          "line_2": "Ботаника кафедрасы"
+        },
+        "eyebrow": "ЦИТОЛОГИЯ × PYTHON",
+        "title": "Деректерден модельге",
+        "subtitle": "Python тілін эвглена мысалында түсіну: деректер, мәліметтер, модельдер және гистограмма құру",
+        "info_cards": [ { "label": "Тобы", "value": "Бт-25-2К" }, { "label": "Орындаған", "value": "Ернұр Ерланұлы" } ],
+        "footer": "Қарағанды · 2026",
+        "orbit_chips": ["import numpy as np", "class Euglena:", "plt.hist()", "df.describe()"]
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "background cells + glow orbs", "effect": "fade in 1200ms" },
+        { "t_ms": 200, "element": "logo disc", "effect": "pop + ring starts rotating (12 s loop)" },
+        { "t_ms": 400, "element": "institution lines", "effect": "rise, 110ms stagger" },
+        { "t_ms": 700, "element": "eyebrow", "effect": "mask_reveal" },
+        { "t_ms": 850, "element": "title", "effect": "mask_reveal 1100ms, then gradient shimmer loop" },
+        { "t_ms": 1200, "element": "hero euglena", "effect": "blur_in 1400ms, then float + flagellum wave loop" },
+        { "t_ms": 1500, "element": "subtitle + info cards", "effect": "rise, stagger 120ms" },
+        { "t_ms": 1900, "element": "orbit chips", "effect": "pop one by one, then orbit slowly around the cell" }
+      ],
+      "speaker_notes": "Құрметті ұстаз, құрметті студенттер! Бүгін мен Python бағдарламалау тілін цитологиядағы ең қызықты нысандардың бірі — эвглена мысалында түсіндіремін. Деректерден бастап модель мен гистограммаға дейінгі жолды бірге өтеміз.",
+      "duration_sec": 40
+    },
+    {
+      "number": 2,
+      "id": "goals",
+      "layout": "Left 5 columns: large glass card 'Мақсат'. Right 7 columns: vertical list of 5 numbered tasks with line icons.",
+      "transition_in": "rise",
+      "content": {
+        "eyebrow": "01 — КІРІСПЕ",
+        "title": "Мақсаты мен міндеттері",
+        "goal": "Python тілінің негіздерін цитологиялық нысан — эвглена мысалында көрнекі түсіндіру.",
+        "tasks": [
+          { "n": "01", "icon": "microscope", "text": "Эвгленаның жасушалық құрылысын сипаттау" },
+          { "n": "02", "icon": "database", "text": "Деректер мен мәліметтерді ажырату" },
+          { "n": "03", "icon": "code-brackets", "text": "Python-да деректер құрылымдарын құру" },
+          { "n": "04", "icon": "cell-model", "text": "Эвгленаның компьютерлік моделін жасау" },
+          { "n": "05", "icon": "bar-chart", "text": "Гистограмма тұрғызып, нәтижені талдау" }
+        ]
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "eyebrow + title", "effect": "mask_reveal" },
+        { "t_ms": 400, "element": "goal card", "effect": "blur_in; inner green glow pulses once" },
+        { "t_ms": 700, "element": "tasks 01–05", "effect": "rise from right, stagger 120ms; number counts 00→0N" },
+        { "t_ms": 1400, "element": "task icons", "effect": "path_draw 800ms" }
+      ],
+      "speaker_notes": "Жұмыстың мақсаты — бағдарламалауды биологиядан алыстатпай, таныс нысан арқылы түсіндіру. Ол үшін бес міндетті орындаймыз: жасушаны сипаттаймыз, деректерді жинаймыз, Python құрылымдарын құрамыз, модель жасаймыз және гистограмма тұрғызамыз.",
+      "duration_sec": 45
+    },
+    {
+      "number": 3,
+      "id": "euglena_cell",
+      "layout": "Full-width labeled cell diagram (center, 1400×560) with callout labels; bottom row of 4 fact chips.",
+      "transition_in": "iris",
+      "content": {
+        "eyebrow": "02 — ЦИТОЛОГИЯЛЫҚ ПОРТРЕТ",
+        "title": "Эвглена: бір жасуша — тұтас зертхана",
+        "species": "Euglena viridis",
+        "labels": [
+          { "name": "Талшық", "function": "қозғалыс" },
+          { "name": "Стигма (көзше)", "function": "жарықты сезу" },
+          { "name": "Жиырылғыш вакуоль", "function": "артық суды шығару" },
+          { "name": "Хлоропласттар", "function": "фотосинтез" },
+          { "name": "Ядро", "function": "тұқым қуалау ақпараты" },
+          { "name": "Парамилон", "function": "қор заты" },
+          { "name": "Пелликула", "function": "серпімді қабық" }
+        ],
+        "facts": [
+          { "label": "Мөлшері", "value": "≈ 40–65 мкм" },
+          { "label": "Қоректенуі", "value": "миксотроф (аралас)" },
+          { "label": "Көбеюі", "value": "бойлай екіге бөліну" },
+          { "label": "Ортасы", "value": "тұщы су" }
+        ]
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 300, "element": "cell body outline", "effect": "path_draw 1400ms, then fill fades in" },
+        { "t_ms": 1200, "element": "organelles", "effect": "pop in order: nucleus → chloroplasts (stagger 60ms) → paramylon → vacuole → stigma" },
+        { "t_ms": 1700, "element": "flagellum", "effect": "grows from reservoir, then waves continuously" },
+        { "t_ms": 2000, "element": "callout lines + labels", "effect": "lines path_draw, labels rise, stagger 140ms" },
+        { "t_ms": 3000, "element": "fact chips", "effect": "pop, stagger 100ms" }
+      ],
+      "speaker_notes": "Эвглена — біржасушалы ағза, бірақ оның ішінде нағыз зертхана бар: хлоропласттар фотосинтез жасайды, стигма жарықты сезуге көмектеседі, талшық қозғалтады, жиырылғыш вакуоль артық суды шығарады. Жарықта ол автотроф, қараңғыда гетеротроф — яғни миксотроф.",
+      "duration_sec": 60
+    },
+    {
+      "number": 4,
+      "id": "data_vs_information",
+      "layout": "Three large glass cards in a horizontal flow connected by animated arrows labeled 'Python'.",
+      "transition_in": "wipe",
+      "content": {
+        "eyebrow": "03 — НЕГІЗГІ ҰҒЫМДАР",
+        "title": "Деректер → Мәліметтер → Модель",
+        "cards": [
+          { "title": "Деректер", "en": "Data", "visual": "raw numbers in monospace: 40.9 · 52.1 · 49.3 · 46.4 · 39.8 · 55.8 · 48.2 · 53.3 …", "caption": "Өңделмеген фактілер: микроскоппен өлшенген сандар" },
+          { "title": "Мәліметтер", "en": "Information", "visual": "big number '51.9 мкм' + 'жасушалардың 55%-ы 48–56 мкм аралығында'", "caption": "Өңделген, мағынасы бар деректер" },
+          { "title": "Модель", "en": "Knowledge", "visual": "mini logistic curve icon", "caption": "Заңдылық → болжау: популяция қалай өседі?" }
+        ],
+        "bottom_line": "Python — деректерді мәліметке, мәліметті модельге айналдыратын құрал"
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 400, "element": "card 1", "effect": "rise; raw numbers rain in (random jitter, then settle)" },
+        { "t_ms": 1100, "element": "arrow 1", "effect": "path_draw + glowing dot travels along it" },
+        { "t_ms": 1400, "element": "card 2", "effect": "rise; '51.9' count_up" },
+        { "t_ms": 2000, "element": "arrow 2", "effect": "path_draw + travelling dot" },
+        { "t_ms": 2300, "element": "card 3", "effect": "rise; mini curve path_draw" },
+        { "t_ms": 2900, "element": "bottom line", "effect": "blur_in" }
+      ],
+      "speaker_notes": "Деректер — бұл жай сандар, мысалы әр жасушаның ұзындығы. Оларды өңдеп, орташа мәнін тапсақ — мәлімет аламыз. Ал мәліметтерден заңдылық шығарып, болжау жасасақ — модель аламыз. Осы жолдың әр қадамын Python орындайды.",
+      "duration_sec": 50
+    },
+    {
+      "number": 5,
+      "id": "why_python",
+      "layout": "Left 6 columns: 4 benefit bullets with icons. Right 6 columns: code editor window + terminal output. Bottom: row of library chips.",
+      "transition_in": "focus_pull",
+      "content": {
+        "eyebrow": "04 — PYTHON",
+        "title": "Python — биологтың цифрлық микроскопы",
+        "benefits": ["Қарапайым, оқуға жеңіл синтаксис", "Дайын ғылыми кітапханалар", "Тегін әрі ашық бастапқы код", "Биоинформатикадағы негізгі тіл"],
+        "code_file": "hello.py",
+        "code": "# Алғашқы бағдарлама\nprint(\"Сәлем, Эвглена!\")",
+        "terminal_output": "Сәлем, Эвглена!",
+        "library_chips": [
+          { "name": "NumPy", "role": "сандар" },
+          { "name": "pandas", "role": "кестелер" },
+          { "name": "Matplotlib", "role": "графиктер" },
+          { "name": "SciPy", "role": "статистика" },
+          { "name": "Biopython", "role": "биоинформатика" }
+        ]
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 400, "element": "benefits", "effect": "rise, stagger 120ms, check icons draw" },
+        { "t_ms": 700, "element": "code window", "effect": "blur_in, then line_by_line_code" },
+        { "t_ms": 1800, "element": "terminal output", "effect": "typewriter 40ms/char + blinking cursor" },
+        { "t_ms": 2200, "element": "library chips", "effect": "pop, stagger 90ms; gentle hover-float loop" }
+      ],
+      "speaker_notes": "Python — оқуға ең жеңіл тілдердің бірі. Биологтар үшін оның басты артықшылығы — дайын кітапханалар: NumPy есептейді, pandas кестемен жұмыс істейді, Matplotlib график салады. Алғашқы бағдарламамыз бір ғана жолдан тұрады.",
+      "duration_sec": 45
+    },
+    {
+      "number": 6,
+      "id": "variables_types",
+      "layout": "Left 7 columns: code editor. Right 5 columns: 4 stacked type cards synchronized with code lines.",
+      "transition_in": "wipe",
+      "content": {
+        "eyebrow": "05 — ДЕРЕКТЕР",
+        "title": "Айнымалылар және деректер типтері",
+        "code_file": "euglena_types.py",
+        "code": "# Эвглена туралы деректер\nname         = \"Euglena viridis\"  # str\nlength_um    = 52.4               # float\nflagella     = 1                  # int\nis_mixotroph = True               # bool\n\nprint(type(length_um))\n# <class 'float'>",
+        "type_cards": [
+          { "type": "str", "value": "\"Euglena viridis\"", "meaning": "мәтін — түрдің атауы" },
+          { "type": "float", "value": "52.4", "meaning": "бөлшек сан — ұзындығы, мкм" },
+          { "type": "int", "value": "1", "meaning": "бүтін сан — талшық саны" },
+          { "type": "bool", "value": "True", "meaning": "логикалық — миксотроф па?" }
+        ]
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 400, "element": "code window", "effect": "blur_in + line_by_line_code" },
+        { "t_ms": 800, "element": "type cards", "effect": "each card slides in from right exactly when its code line appears; a thin connector glows from line to card" },
+        { "t_ms": 2400, "element": "type badges", "effect": "pop with overshoot" }
+      ],
+      "speaker_notes": "Айнымалы — деректі сақтайтын «қорап». Эвгленаның атауы — мәтін, яғни str; ұзындығы — бөлшек сан, float; талшық саны — бүтін сан, int; ал миксотроф па деген сұраққа жауап — True немесе False, яғни bool.",
+      "duration_sec": 50
+    },
+    {
+      "number": 7,
+      "id": "list_dict",
+      "layout": "Left 6 columns: code editor. Right 6 columns: two visualizations stacked — list as indexed boxes, dict as key→value rows.",
+      "transition_in": "blinds",
+      "content": {
+        "eyebrow": "05 — ДЕРЕКТЕР ҚҰРЫЛЫМЫ",
+        "title": "Тізім (list) және сөздік (dict)",
+        "code_file": "structures.py",
+        "code": "# Тізім: 8 жасушаның ұзындығы, мкм\nlengths = [40.9, 52.1, 49.3, 46.4,\n           39.8, 55.8, 48.2, 53.3]\n\n# Сөздік: органоид → қызметі\ncell = {\n    \"хлоропласт\": \"фотосинтез\",\n    \"стигма\": \"жарықты сезу\",\n    \"талшық\": \"қозғалыс\",\n    \"вакуоль\": \"осморегуляция\",\n}\nprint(len(lengths), max(lengths))  # 8 55.8\nprint(cell[\"стигма\"])  # жарықты сезу",
+        "list_visual": "8 boxes with index [0]…[7] above and values inside; max value 55.8 highlighted in yellow",
+        "dict_visual": "4 rows: key chip (green) → arrow → value chip (blue)"
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 300, "element": "code", "effect": "line_by_line_code" },
+        { "t_ms": 700, "element": "list boxes", "effect": "drop in from top, stagger 70ms; index labels fade" },
+        { "t_ms": 1500, "element": "max box", "effect": "yellow glow pulse twice" },
+        { "t_ms": 1700, "element": "dict rows", "effect": "key chip pop → arrow path_draw → value chip slide, stagger 150ms" }
+      ],
+      "speaker_notes": "Бір жасуша емес, көп жасушаны өлшесек — тізім керек. Тізімдегі әр мәннің өз нөмірі, яғни индексі бар, ол нөлден басталады. Ал сөздік «кілт — мән» жұбын сақтайды: органоидтың атын жазсақ, оның қызметін береді.",
+      "duration_sec": 50
+    },
+    {
+      "number": 8,
+      "id": "dataframe",
+      "layout": "Left 5 columns: code editor. Right 7 columns: premium data table (8 rows) + shape badge + data note.",
+      "transition_in": "rise",
+      "content": {
+        "eyebrow": "06 — КЕСТЕ",
+        "title": "pandas DataFrame: 120 жасуша",
+        "code_file": "dataset.py",
+        "code": "import numpy as np\nimport pandas as pd\n\nrng = np.random.default_rng(2025)\nn = 120\ndf = pd.DataFrame({\n    \"ұзындық\":   rng.normal(52, 5, n).round(1),\n    \"ені\":       rng.normal(16, 1.5, n).round(1),\n    \"жылдамдық\": rng.normal(90, 15, n).round(0),\n})\nprint(df.shape)   # (120, 3)\ndf.head(8)",
+        "table_columns": ["№", "ұзындық, мкм", "ені, мкм", "жылдамдық, мкм/с"],
+        "table_rows": "use dataset.first_8_rows",
+        "table_footer": "… тағы 112 жол",
+        "badge": "(120, 3)",
+        "note": "Оқу мақсатындағы модельденген деректер (seed = 2025)"
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 300, "element": "code", "effect": "line_by_line_code" },
+        { "t_ms": 900, "element": "table header", "effect": "wipe in" },
+        { "t_ms": 1100, "element": "table rows", "effect": "rise, stagger 80ms; numbers count_up in each cell" },
+        { "t_ms": 2000, "element": "badge (120, 3)", "effect": "pop with green glow" }
+      ],
+      "speaker_notes": "Нақты зерттеуде жүздеген жасуша өлшенеді. Мұндай деректерді Excel кестесі сияқты ұстау үшін pandas кітапханасының DataFrame құрылымын қолданамыз. Біздің кестеде 120 жол және 3 баған бар.",
+      "duration_sec": 50
+    },
+    {
+      "number": 9,
+      "id": "statistics",
+      "layout": "Top: one-line code bar. Middle: 6 KPI tiles. Bottom: animated horizontal box-plot with min / Q1 / median / Q3 / max.",
+      "transition_in": "focus_pull",
+      "content": {
+        "eyebrow": "07 — МӘЛІМЕТ",
+        "title": "Деректерден мәліметке: статистика",
+        "code": "df[\"ұзындық\"].describe().round(1)",
+        "kpis": [
+          { "label": "Жасуша саны", "value": "120" },
+          { "label": "Орташа", "value": "51.9 мкм" },
+          { "label": "Медиана", "value": "52.4 мкм" },
+          { "label": "Стандартты ауытқу", "value": "5.7 мкм" },
+          { "label": "Ең кіші", "value": "37.5 мкм" },
+          { "label": "Ең үлкен", "value": "66.7 мкм" }
+        ],
+        "boxplot": { "min": 37.5, "q1": 48.5, "median": 52.4, "q3": 55.6, "max": 66.7 },
+        "insight": "Жасушалардың жартысы 48.5–55.6 мкм аралығында"
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 300, "element": "code bar", "effect": "typewriter" },
+        { "t_ms": 800, "element": "KPI tiles", "effect": "pop stagger 90ms + count_up" },
+        { "t_ms": 1700, "element": "boxplot axis", "effect": "path_draw" },
+        { "t_ms": 2000, "element": "box + whiskers", "effect": "box expands from median outward, whiskers extend" },
+        { "t_ms": 2700, "element": "insight", "effect": "blur_in with highlighter sweep" }
+      ],
+      "speaker_notes": "Бір ғана describe() командасы 120 санды бірнеше түсінікті көрсеткішке айналдырады. Орташа ұзындық — 51.9 мкм, медиана — 52.4 мкм. Бұл енді жай деректер емес, мәлімет.",
+      "duration_sec": 55
+    },
+    {
+      "number": 10,
+      "id": "model_class",
+      "layout": "Left 7 columns: tall code editor. Right 5 columns: UML-style class card + animated energy meter simulation + cell division.",
+      "transition_in": "iris",
+      "content": {
+        "eyebrow": "08 — МОДЕЛЬ I",
+        "title": "Эвгленаның объектілік моделі",
+        "code_file": "model.py",
+        "code": "class Euglena:\n    def __init__(self, length=52.4, energy=50):\n        self.length = length      # мкм\n        self.energy = energy      # шартты бірлік\n\n    def feed(self, light: bool):  # миксотрофия\n        self.energy += 10 if light else 4\n\n    def swim(self):               # талшықпен жүзу\n        self.energy -= 3\n\n    def divide(self):             # бойлай бөліну\n        if self.energy >= 80:\n            self.energy /= 2\n            return Euglena(self.length, self.energy)\n\ncell = Euglena()\nfor hour in range(5):\n    cell.feed(light=True)\n    cell.swim()\nprint(cell.energy)                # 85\nchild = cell.divide()             # 42.5 + 42.5",
+        "class_card": { "name": "Euglena", "attributes": ["length: float", "energy: float"], "methods": ["feed(light)", "swim()", "divide()"] },
+        "simulation": "energy meter steps 50 → 57 → 64 → 71 → 78 → 85, then the cell splits lengthwise into two cells with energy 42.5 each"
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 300, "element": "code", "effect": "line_by_line_code (fast, 70ms)" },
+        { "t_ms": 900, "element": "class card", "effect": "blur_in; attributes and methods rise" },
+        { "t_ms": 1800, "element": "energy meter", "effect": "fills in 5 steps (400ms each) with counter" },
+        { "t_ms": 3900, "element": "cell", "effect": "pinches along its long axis and splits into two cells (morph), numbers show 42.5 + 42.5" }
+      ],
+      "speaker_notes": "Модель — нақты нысанның жеңілдетілген көшірмесі. Python-да оны класс арқылы сипаттаймыз: эвгленаның қасиеттері — ұзындығы мен энергиясы, ал әрекеттері — қоректену, жүзу және бөліну. Энергия 80-нен асқанда жасуша екіге бөлінеді.",
+      "duration_sec": 60
+    },
+    {
+      "number": 11,
+      "id": "model_population",
+      "layout": "Left 5 columns: formula card + parameter chips + short code. Right 7 columns: large animated line chart with phase zones.",
+      "transition_in": "wipe",
+      "content": {
+        "eyebrow": "09 — МОДЕЛЬ II",
+        "title": "Популяция өсуінің математикалық моделі",
+        "formula": "N(t) = K / (1 + ((K − N₀) / N₀) · e^(−r·t))",
+        "parameters": [
+          { "symbol": "N₀ = 10", "meaning": "бастапқы жасуша саны" },
+          { "symbol": "K = 1000", "meaning": "ортаның сыйымдылығы" },
+          { "symbol": "r = 0.69", "meaning": "өсу жылдамдығы (≈ тәулігіне 2 есе)" }
+        ],
+        "code": "t = np.arange(0, 15)   # тәулік\nN = K / (1 + (K - N0) / N0 * np.exp(-r * t))",
+        "chart": { "x_label": "Уақыт, тәулік", "y_label": "Жасуша саны", "data": "use dataset.logistic_growth" },
+        "phase_labels": ["Экспоненциалды өсу", "Баяулау", "Стационарлық фаза (K)"]
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 300, "element": "formula card", "effect": "blur_in; symbols light up one by one" },
+        { "t_ms": 900, "element": "parameter chips", "effect": "pop stagger 100ms" },
+        { "t_ms": 1200, "element": "axes", "effect": "path_draw" },
+        { "t_ms": 1600, "element": "S-curve", "effect": "path_draw 2000ms, glowing head dot rides the curve" },
+        { "t_ms": 2200, "element": "data points", "effect": "pop in sync with the curve head" },
+        { "t_ms": 3400, "element": "phase zones + K dashed line", "effect": "fade in tinted bands, labels rise" }
+      ],
+      "speaker_notes": "Екінші модель — математикалық. Эвглена қолайлы ортада шамамен тәулігіне бір рет бөлінеді, бірақ қоректік зат шексіз емес. Сондықтан популяция алдымен экспоненциалды өседі, кейін баяулап, ортаның сыйымдылығы K-ға жетеді. Бұл — логистикалық S-қисығы.",
+      "duration_sec": 55
+    },
+    {
+      "number": 12,
+      "id": "histogram_build",
+      "layout": "Left 5 columns: code editor (matplotlib). Right 7 columns: large histogram with 8 bars, axis labels and dashed mean line.",
+      "transition_in": "rise",
+      "content": {
+        "eyebrow": "10 — ГИСТОГРАММА",
+        "title": "Гистограмма құру",
+        "code_file": "histogram.py",
+        "code": "import matplotlib.pyplot as plt\n\nbins = np.arange(36, 72, 4)   # 4 мкм қадам\nplt.hist(df[\"ұзындық\"], bins=bins,\n         color=\"#3DDC97\", edgecolor=\"white\")\nplt.axvline(df[\"ұзындық\"].mean(), color=\"#FFD43B\",\n            linestyle=\"--\", label=\"орташа\")\nplt.title(\"Эвглена ұзындығының таралуы (n = 120)\")\nplt.xlabel(\"Ұзындығы, мкм\")\nplt.ylabel(\"Жасуша саны\")\nplt.legend()\nplt.show()",
+        "chart": { "title": "Эвглена ұзындығының таралуы (n = 120)", "x_label": "Ұзындығы, мкм", "y_label": "Жасуша саны", "data": "use dataset.histogram_bin_4um", "mean_line": 51.9 }
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 300, "element": "code", "effect": "line_by_line_code" },
+        { "t_ms": 900, "element": "axes + ticks", "effect": "path_draw, tick labels fade" },
+        { "t_ms": 1300, "element": "8 bars", "effect": "grow_y with overshoot, stagger 90ms; count labels count_up above bars" },
+        { "t_ms": 2300, "element": "mean line", "effect": "drops from top as dashed yellow line + label 'орташа = 51.9'" }
+      ],
+      "speaker_notes": "Гистограмма — деректердің қалай таралғанын көрсететін график. Ұзындықтарды 4 мкм-лік аралықтарға бөліп, әр аралыққа қанша жасуша түскенін санаймыз. Matplotlib мұны бір ғана plt.hist() командасымен жасайды.",
+      "duration_sec": 55
+    },
+    {
+      "number": 13,
+      "id": "histogram_analysis",
+      "layout": "Top: three mini histograms side by side (bins 8 / 4 / 2 мкм). Bottom: three insight cards.",
+      "transition_in": "blinds",
+      "content": {
+        "eyebrow": "11 — ТАЛДАУ",
+        "title": "Гистограмманы оқу және талдау",
+        "mini_charts": [
+          { "label": "4 бағана (8 мкм)", "data": "dataset.histogram_bin_8um", "verdict": "Тым аз — егжей-тегжей жоғалады" },
+          { "label": "8 бағана (4 мкм)", "data": "dataset.histogram_bin_4um", "verdict": "Оңтайлы таңдау ✓", "highlight": true },
+          { "label": "16 бағана (2 мкм)", "data": "dataset.histogram_bin_2um", "verdict": "Тым көп — кездейсоқ шу көбейеді" }
+        ],
+        "insights": [
+          { "title": "Пішіні", "text": "Қалыпты (Гаусс) таралуға жақын — популяция біртекті" },
+          { "title": "Ең жиі аралық", "text": "52–56 мкм: 39 жасуша" },
+          { "title": "Симметрия", "text": "Орташа 51.9 < медиана 52.4 — сәл сол жаққа ығысқан" }
+        ]
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 400, "element": "mini chart 1 → 2 → 3", "effect": "bars grow_y, 350ms between charts" },
+        { "t_ms": 1800, "element": "optimal chart", "effect": "green ring highlight + check mark draw; the other two dim to 60%" },
+        { "t_ms": 2300, "element": "bell curve over optimal chart", "effect": "path_draw" },
+        { "t_ms": 2600, "element": "insight cards", "effect": "rise stagger 140ms" }
+      ],
+      "speaker_notes": "Гистограмманың пішіні бағана санына байланысты. Бағана тым аз болса, мәлімет жоғалады; тым көп болса — шу пайда болады. 4 мкм қадам оңтайлы: таралу қалыпты таралуға жақын, ең көп жасуша 52–56 мкм аралығында.",
+      "duration_sec": 55
+    },
+    {
+      "number": 14,
+      "id": "pipeline",
+      "layout": "Horizontal pipeline of 6 nodes across the full width, connected by a glowing path; each node has an icon, title and Python tool chip.",
+      "transition_in": "focus_pull",
+      "content": {
+        "eyebrow": "12 — ЖҮЙЕЛЕУ",
+        "title": "Толық цикл: микроскоптан қорытындыға дейін",
+        "nodes": [
+          { "n": 1, "title": "Бақылау", "tool": "микроскоп", "icon": "microscope" },
+          { "n": 2, "title": "Деректер", "tool": "list · dict", "icon": "list" },
+          { "n": 3, "title": "Кесте", "tool": "pandas", "icon": "table" },
+          { "n": 4, "title": "Мәлімет", "tool": "describe()", "icon": "sigma" },
+          { "n": 5, "title": "Модель", "tool": "class · NumPy", "icon": "cell" },
+          { "n": 6, "title": "Гистограмма", "tool": "plt.hist()", "icon": "chart" }
+        ],
+        "caption": "Әр қадам — Python-ның бір құралы; бәрі бірге — ғылыми зерттеудің толық циклі"
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 400, "element": "connector path", "effect": "path_draw 1800ms left → right" },
+        { "t_ms": 500, "element": "nodes 1–6", "effect": "pop in sync with the drawing line, stagger 280ms" },
+        { "t_ms": 2400, "element": "data packet", "effect": "glowing particle travels along the path in an infinite 4 s loop; each node pulses when the particle passes" },
+        { "t_ms": 2600, "element": "caption", "effect": "blur_in" }
+      ],
+      "speaker_notes": "Енді барлығын бір жүйеге біріктірейік. Микроскоппен бақылаймыз, деректерді тізімге жазамыз, pandas кестесіне саламыз, статистика арқылы мәлімет аламыз, модель құрамыз және гистограммамен көрсетеміз. Бұл — нағыз ғылыми зерттеудің циклі.",
+      "duration_sec": 45
+    },
+    {
+      "number": 15,
+      "id": "conclusion_thanks",
+      "layout": "Top half: title 'Қорытынды' + 4 conclusion cards in a row. Bottom half: huge centered thank-you text with animated gradient, logo and author line.",
+      "transition_in": "iris",
+      "content": {
+        "eyebrow": "13 — ҚОРЫТЫНДЫ",
+        "title": "Қорытынды",
+        "conclusions": [
+          "Эвглена — Python-ды үйретуге тамаша модель: бір жасушада деректердің барлық түрі бар.",
+          "Python деректерді мәліметке айналдырады: 120 өлшем → орташа ұзындық 51.9 мкм.",
+          "class және логистикалық теңдеу — тірі жүйені модельдеудің екі жолы.",
+          "Гистограмма популяцияның біртекті, қалыпты таралуға жақын екенін көрсетті."
+        ],
+        "thank_you": "Назарларыңызға алғысым ұшан теңіз!",
+        "author_line": "Ернұр Ерланұлы · Бт-25-2К · Ботаника кафедрасы",
+        "institution": "Академик Е.А. Бөкетов атындағы Қарағанды Ұлттық Зерттеу университеті"
+      },
+      "animation_sequence": [
+        { "t_ms": 0, "element": "title", "effect": "mask_reveal" },
+        { "t_ms": 300, "element": "4 conclusion cards", "effect": "rise, stagger 140ms; numbers 01–04 pop" },
+        { "t_ms": 1300, "element": "background", "effect": "all swimming cells slowly gather toward the center, glow intensifies" },
+        { "t_ms": 1600, "element": "thank-you text", "effect": "word-by-word blur_in + scale, then infinite gradient shimmer (chlorophyll → lime → python blue)" },
+        { "t_ms": 2400, "element": "particle burst", "effect": "soft burst of 40 green/yellow particles from the text center, fading in 1.8 s" },
+        { "t_ms": 2700, "element": "logo + author line", "effect": "pop + rise" }
+      ],
+      "speaker_notes": "Қорытындылай келе: эвглена мысалында Python-ның деректерден модельге дейінгі барлық мүмкіндігін көрдік. Бағдарламалау — биологтың жаңа микроскопы. Назарларыңызға алғысым ұшан теңіз!",
+      "duration_sec": 45
+    }
+  ],
+
+  "export": {
+    "primary": "Interactive HTML (keyboard ← → / Space, F = fullscreen) or Keynote/PowerPoint with Morph transitions",
+    "video": { "format": "MP4 (H.264)", "resolution": "1920×1080", "fps": 60, "auto_advance_per_slide_sec": "use duration_sec" },
+    "static": "PDF 16:9 with every animation in its final state",
+    "pptx_notes": "If exported to PowerPoint: use Morph between slides, 'Fly in / Wipe / Zoom' with Smooth End for entrances, and put speaker_notes into the notes panel."
+  },
+
+  "quality_checklist": [
+    "Every Kazakh letter (ә ғ қ ң ө ұ ү һ і) renders in the chosen font — no tofu boxes.",
+    "Contrast of text on background ≥ 4.5:1.",
+    "Code is syntax-highlighted, monospace, correctly indented and runnable.",
+    "Chart numbers match the dataset exactly.",
+    "Each slide has transition + staggered entrance + ambient loop; total entrance ≤ 3.5 s so the speaker is never waiting.",
+    "Consistent margins, one accent color per element, no clutter.",
+    "Author, group, department and university are correct on slides 1 and 15.",
+    "Last slide contains the conclusion AND the line 'Назарларыңызға алғысым ұшан теңіз!'."
+  ],
+
+  "negative_prompt": [
+    "no stock-photo collages",
+    "no clip-art or cartoon cells",
+    "no Comic Sans / Times New Roman / default Arial",
+    "no rainbow gradients or neon overload",
+    "no bounce or spin on titles",
+    "no walls of text",
+    "no Russian or English text instead of the given Kazakh text",
+    "no invented statistics",
+    "no misspelled Kazakh letters (e.g. 'К' instead of 'Қ', 'у' instead of 'ұ')"
+  ]
+}
